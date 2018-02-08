@@ -1,4 +1,3 @@
-from Model import Model
 from sqlalchemy.orm import relationship
 from Model import Model
 from services.AdministratorService import AdministratorService
@@ -34,7 +33,13 @@ class Administrator(Model):
 
    @staticmethod
    def add(administrator):
-       return AdministratorService().add(administrator)
+      service = AdministratorService()
+      old_admin = service.getByUsername(administrator.username)
+      if (old_admin is not None):
+         "throw exception user already exists"
+         return False
+      service.add(administrator)
+      return True
 
    @staticmethod
    def delete(administrator):

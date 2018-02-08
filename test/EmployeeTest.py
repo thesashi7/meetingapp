@@ -2,12 +2,12 @@ from models.Employee import Employee
 
 class EmployeeTest:
 
-    def testAddEmployee(self):
+    def addEmployee(self):
        emp = Employee()
        emp.setCredentials("sam","hunt")
        print Employee.add(emp)
 
-    def testGetEmployee(self):
+    def getEmployee(self):
        emp = Employee.getByCredential("sam", "hunt")
        print emp
        if emp!=None:
@@ -16,7 +16,7 @@ class EmployeeTest:
            print emp.employee_id
 
 
-    def testDeleteEmployee(self):
+    def deleteEmployee(self):
        emp = Employee.getByCredential("sam", "hunt")
        print emp
        if emp!=None:
@@ -25,6 +25,6 @@ class EmployeeTest:
 
 
     def run(self):
-       self.testAddEmployee()
-       #self.testGetEmployee()
-       #self.testDeleteEmployee()
+       self.addEmployee()
+       #self.getEmployee()
+       #self.deleteEmployee()
