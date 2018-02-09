@@ -7,6 +7,8 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET = os.getenv('SECRET')
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    SECRET_KEY="powerful secretkey"
+    WTF_CSRF_SECRET_KEY="a csrf secret key"
 
 class DevelopmentConfig(Config):
     """Configurations for Development."""

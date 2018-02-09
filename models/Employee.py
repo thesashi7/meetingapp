@@ -4,10 +4,16 @@ from Model import Model
 from services.EmployeeService import EmployeeService
 from services.DatabaseService import DatabaseService
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
-class Employee(Model):
+
+
+class Employee(Model, UserMixin):
    __tablename__ = 'employee'
    __table_args__ = {'autoload':True, 'autoload_with':DatabaseService.DBEngine()}
+
+   def __init__():
+      self.is_authenticated = True
 
    def setCredentials(self, username, passw):
        self.username = username
@@ -15,6 +21,21 @@ class Employee(Model):
 
    def setPassword(self, passw):
        self.password = generate_password_hash(passw)
+
+   def __repr__(self):
+      return '<User %r>' % self.username
+
+   def is_authenticated(self):
+      return self.is_authenticated
+
+   def is_active(self):
+      return True
+
+   def is_anonymous(self):
+      return False
+
+   def get_id(self):
+      return str(self.employee_id)
 
    @staticmethod
    def getById(id):
@@ -45,3 +66,7 @@ class Employee(Model):
    @staticmethod
    def delete(employee):
        return EmployeeService().delete(employee)
+
+   @staticmethod
+   def update(employee):
+      EmployeeService().update(employee)

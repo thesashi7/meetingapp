@@ -46,3 +46,9 @@ class AdministratorService(DatabaseService):
         current_sessions = self.session.object_session(administrator)
         current_sessions.delete(administrator)
         return current_sessions.commit()
+
+   def update(self, administrator):
+      from models.Administrator import Administrator
+      current_sessions = self.session.object_session(administrator)
+      current_sessions.flush()
+      return current_sessions.commit()

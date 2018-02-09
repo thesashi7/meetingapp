@@ -1,12 +1,18 @@
-from flask import Flask
-from flask_restful import Api
-from routes import init_api_routes
+from flask import Flask,redirect
+from flask_login import LoginManager
+from controllers.Controller import Controller
+from models.Employee import Employee
+from config.config import Config
+from utils.LogIn import LogIn
 
 app = Flask(__name__)
-api = Api(app)
+app.config.update(dict(
+     SECRET_KEY=Config.SECRET_KEY,
+     WTF_CSRF_SECRET_KEY=Config.WTF_CSRF_SECRET_KEY
+))
 
-init_api_routes(api)
-
+LogIn.employee_login(app)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+   from routes import *
+   app.run(debug = True)

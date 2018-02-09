@@ -22,7 +22,13 @@ class AdministratorTest:
           print admin.username
           Administrator.delete(admin)
 
+    def updateAdministrator(self):
+       admin = Administrator.getByCredential("ali", "champ")
+       admin.setPassword("hunt")
+       Administrator.update(admin)
+
     def run(self):
-       self.addAdministrator()
-       self.getAdminstrator()
+       self.updateAdministrator()
+       #self.addAdministrator()
+       #self.getAdminstrator()
        #self.deleteAdministrator()

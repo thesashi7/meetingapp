@@ -46,3 +46,9 @@ class EmployeeService(DatabaseService):
         current_sessions = self.session.object_session(employee)
         current_sessions.delete(employee)
         return current_sessions.commit()
+
+   def update(self, employee):
+      from models.Employee import Employee
+      current_sessions = self.session.object_session(employee)
+      current_sessions.flush()
+      return current_sessions.commit()

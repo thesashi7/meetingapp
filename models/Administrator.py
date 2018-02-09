@@ -44,3 +44,7 @@ class Administrator(Model):
    @staticmethod
    def delete(administrator):
        return AdministratorService().delete(administrator)
+
+   @staticmethod
+   def update(administrator):
+      AdministratorService().update(administrator)

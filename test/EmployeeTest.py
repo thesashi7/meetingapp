@@ -23,8 +23,13 @@ class EmployeeTest:
           print emp.username
           Employee.delete(emp)
 
+    def updateEmployee(self):
+       emp = Employee.getByCredential("sam", "hunt")
+       emp.username = "saam"
+       Employee.update(emp)
 
     def run(self):
-       self.addEmployee()
+       #self.addEmployee()
        #self.getEmployee()
        #self.deleteEmployee()
+       self.updateEmployee()
