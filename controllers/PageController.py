@@ -1,6 +1,5 @@
 from __future__ import print_function
 from flask_login import current_user
-from flask_jwt import jwt_required
 from views.PageView import PageView
 from flask import Response
 from BaseController import BaseController

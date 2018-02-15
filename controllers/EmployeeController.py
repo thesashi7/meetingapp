@@ -2,8 +2,6 @@ from __future__ import print_function
 from flask.ext.login import LoginManager, UserMixin, \
                                 login_required, login_user, logout_user, current_user
 from flask import Flask,session, request, flash, url_for, redirect, render_template, abort ,g
-from flask_restful import Resource
-from flask_jwt import jwt_required
 from flask import render_template
 from flask import Response
 from BaseController import BaseController
