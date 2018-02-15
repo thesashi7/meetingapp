@@ -13,10 +13,15 @@ And the following dependencies:
 3) flask-login
 
 For Ubuntu:
+
 sudo pip install Flask
+
 sudo pip install SQLAlchemy
+
 sudo pip install flask-login
+
 sudo apt install postgresql-9.5
+
 
 
 
