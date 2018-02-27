@@ -24,17 +24,22 @@ class AdministratorService(DatabaseService):
      admin = self.session.query(Administrator).filter(Administrator.username == str(username)).all()
      if(len(admin) > 0 and check_password_hash(admin[0].password, passw) == True):
          return admin[0]
+     print admin[0]
      return None
 
    def add(self, administrator):
      from models.Administrator import Administrator
      if isinstance(administrator, Administrator):
         self.session.add(administrator)
-        return self.session.commit()
+        self.session.commit()
 
    def delete(self, administrator):
      from models.Administrator import Administrator
      if isinstance(administrator, Administrator):
-        current_sessions = self.session.object_session(administrator)
-        current_sessions.delete(administrator)
-        return current_sessions.commit()
+        self.session.delete(administrator)
+        self.session.commit()
+
+   def update(self, administrator):
+     from models.Administrator import Administrator
+     if isinstance(administrator, Administrator):
+        self.session.commit()

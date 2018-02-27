@@ -23,8 +23,8 @@ class AdministratorTest:
           Administrator.delete(admin)
 
     def updateAdministrator(self):
-       admin = Administrator.getByCredential("ali", "champ")
-       admin.setPassword("hunt")
+       admin = Administrator.getByCredential("ali", "hunt")
+       admin.setPassword("champ")
        Administrator.update(admin)
 
     def run(self):

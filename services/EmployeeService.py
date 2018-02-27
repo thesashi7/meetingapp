@@ -43,12 +43,10 @@ class EmployeeService(DatabaseService):
    def delete(self, employee):
      from models.Employee import Employee
      if isinstance(employee, Employee):
-        current_sessions = self.session.object_session(employee)
-        current_sessions.delete(employee)
-        return current_sessions.commit()
+        self.session.delete(employee)
+        self.session.commit()
 
    def update(self, employee):
       from models.Employee import Employee
-      current_sessions = self.session.object_session(employee)
-      current_sessions.flush()
-      return current_sessions.commit()
+      if isinstance(employee, Employee):
+          self.session.commit()

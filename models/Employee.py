@@ -11,6 +11,7 @@ from flask_login import UserMixin
 class Employee(Model, UserMixin):
    __tablename__ = 'employee'
    __table_args__ = {'autoload':True, 'autoload_with':DatabaseService.DBEngine()}
+   service = EmployeeService()
 
    def __init__():
       self.is_authenticated = True
@@ -39,7 +40,7 @@ class Employee(Model, UserMixin):
 
    @staticmethod
    def getById(id):
-      employee = EmployeeService().get(id)
+      employee = Employee.service.get(id)
       print employee
       if (employee != None):
         employee.new = False
@@ -47,7 +48,7 @@ class Employee(Model, UserMixin):
 
    @staticmethod
    def getByCredential(username, passw):
-      employee = EmployeeService().getByCredential(username, passw)
+      employee = Employee.service.getByCredential(username, passw)
       print employee
       if (employee is not None):
         employee.new = False
@@ -55,18 +56,18 @@ class Employee(Model, UserMixin):
 
    @staticmethod
    def add(employee):
-       service = EmployeeService()
-       old_employee = service.getByUsername(employee.username)
+
+       old_employee = Employee.service.getByUsername(employee.username)
        if (old_employee is not None):
           "throw exception user already exists"
           return False
-       service.add(employee)
+       Employee.service.add(employee)
        return True
 
    @staticmethod
    def delete(employee):
-       return EmployeeService().delete(employee)
+       return Employee.service.delete(employee)
 
    @staticmethod
    def update(employee):
-      EmployeeService().update(employee)
+      Employee.service.update(employee)
