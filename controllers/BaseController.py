@@ -7,7 +7,8 @@ from flask import Response
  Parent Class Controller
 
 """
-class BaseController:
 
+
+class BaseController:
     def __init__(self):
-       self.notification = False
+        self.notification = False

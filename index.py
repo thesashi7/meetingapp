@@ -1,4 +1,4 @@
-from flask import Flask,redirect
+from flask import Flask, redirect
 from flask_login import LoginManager
 from controllers.Controller import Controller
 from models.Employee import Employee
@@ -7,12 +7,13 @@ from utils.LogIn import LogIn
 
 app = Flask(__name__)
 app.config.update(dict(
-     SECRET_KEY=Config.SECRET_KEY,
-     WTF_CSRF_SECRET_KEY=Config.WTF_CSRF_SECRET_KEY
+        SECRET_KEY=Config.SECRET_KEY,
+        WTF_CSRF_SECRET_KEY=Config.WTF_CSRF_SECRET_KEY
 ))
 
 LogIn.employee_login(app)
 
 if __name__ == '__main__':
-   from routes import *
-   app.run(debug = True)
+    from routes import *
+
+    app.run(debug=True)

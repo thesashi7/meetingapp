@@ -10,15 +10,16 @@ import sys
 """
  Page Controller
 """
-class PageController(BaseController):
 
+
+class PageController(BaseController):
     def __init__(self):
         self.view = PageView()
 
     def index(self):
-       if (current_user.is_authenticated == True):
-          return self.view.render_calendar()
-       return self.view.render_landing()
+        if (current_user.is_authenticated == True):
+            return self.view.render_calendar()
+        return self.view.render_landing()
 
     def schedule(self):
         return self.view.render_schedule()

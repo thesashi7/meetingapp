@@ -1,6 +1,4 @@
-
 class BaseView():
-
     def __init__(self):
         self.message = {}
         self.message['success'] = ""

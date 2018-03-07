@@ -17,11 +17,11 @@ module.exports = function (grunt) {
         });
 
         grunt.config('string-replace.bootstrap-datetimepicker-css', {
-            files: { 'src/less/_bootstrap-datetimepicker.less': 'src/less/_bootstrap-datetimepicker.less' },
+            files: {'src/less/_bootstrap-datetimepicker.less': 'src/less/_bootstrap-datetimepicker.less'},
             options: {
                 replacements: [
                     {
-                        pattern:     / * version : .*/,
+                        pattern: / * version : .*/,
                         replacement: ' version : ' + version
                     }
                 ]
@@ -33,7 +33,7 @@ module.exports = function (grunt) {
             options: {
                 replacements: [
                     {
-                        pattern:     /"version": .*/,
+                        pattern: /"version": .*/,
                         replacement: '"version": "' + version + '"'
                     }
                 ]
@@ -45,7 +45,7 @@ module.exports = function (grunt) {
             options: {
                 replacements: [
                     {
-                        pattern:     /"version": .*/,
+                        pattern: /"version": .*/,
                         replacement: '"version": "' + version + '",'
                     }
                 ]
@@ -57,7 +57,7 @@ module.exports = function (grunt) {
             options: {
                 replacements: [
                     {
-                        pattern:     /"version": .*/,
+                        pattern: /"version": .*/,
                         replacement: '"version": "' + version + '",'
                     }
                 ]
@@ -69,7 +69,7 @@ module.exports = function (grunt) {
             options: {
                 replacements: [
                     {
-                        pattern:     /"version": .*/,
+                        pattern: /"version": .*/,
                         replacement: '"version": "' + version + '",'
                     }
                 ]

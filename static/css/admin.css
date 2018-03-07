@@ -3,24 +3,24 @@
     Author     : alex
 */
 
-#container{
-	padding-top: 20px;
+#container {
+    padding-top: 20px;
 }
 
-li > a:hover{
-	cursor: pointer;
+li > a:hover {
+    cursor: pointer;
 }
 
-.admin-dashboard-content{
-	margin-top: 0px;
-	padding: 10px;
-	border-right: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-	border-left: 1px solid #ddd;
+.admin-dashboard-content {
+    margin-top: 0px;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
 }
 
-textarea{
-	resize: vertical;
-	min-height: 100px;
-	max-height: 400px;
+textarea {
+    resize: vertical;
+    min-height: 100px;
+    max-height: 400px;
 }

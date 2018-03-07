@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from config.config import app_config
 
+
 class DatabaseService:
     global ENGINE
     ENGINE = app_config['development'].SQLALCHEMY_DATABASE_URI
@@ -26,10 +27,11 @@ class DatabaseService:
         Initializes the database tables and relationships
         :return: None
         """
-        #init_database(self.engine)
+        # init_database(self.engine)
+
     pass
 
     @staticmethod
-    def DBEngine(engine = ENGINE):
-       db_engine = create_engine(engine)
-       return db_engine
+    def DBEngine(engine=ENGINE):
+        db_engine = create_engine(engine)
+        return db_engine
