@@ -1,0 +1,10 @@
+<legend class="text-center" >Select Room
+
+</legend>
+{% for room in room_list %}
+<div class="slots" onclick="step3({{room.room_id}});">
+{{room.name}}
+</br>
+Capacity = {{room.capacity}}
+</div>
+ {% endfor %}

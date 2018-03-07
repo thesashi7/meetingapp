@@ -2,6 +2,18 @@ from DatabaseService import DatabaseService
 
 class RoomService(DatabaseService):
 
+   def getAll(self):
+     from models.Room import Room
+     rooms = None
+     rooms = self.session.query(Room).all()
+     return rooms
+
+   def getAllByFilter(self, room_ids):
+     from models.Room import Room
+     rooms = None
+     rooms = self.session.query(Room).filter(~Room.room_id.in_(room_ids)).all()
+     return rooms
+
    def get(self, id, serialize = False):
      from models.Room import Room
      room = None
@@ -33,7 +45,6 @@ class RoomService(DatabaseService):
      if isinstance(room, Room):
         self.session.delete(room)
         self.session.commit()
-
 
    def update(self, room):
       from models.Room import Room

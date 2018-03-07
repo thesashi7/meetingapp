@@ -8,10 +8,19 @@ class MeetingAttendee(Model):
    __table_args__ = {'autoload':True, 'autoload_with':DatabaseService.DBEngine()}
    service = MeetingAttendeeService()
 
-
+   def getMeeting(self):
+       from models.Meeting import Meeting
+       meeting = Meeting.getById(self.meeting_id)
+       return meeting
+       
    @staticmethod
    def getByMeetingId(id):
        meeting_attn= MeetingAttendee.service.getByMeetingId(id)
+       return meeting_attn
+
+   @staticmethod
+   def getByEmployeeAndStatus(emp_id, ac_stat):
+       meeting_attn = MeetingAttendee.service.getByEmployeeAndStatus(emp_id, ac_stat)
        return meeting_attn
 
    @staticmethod

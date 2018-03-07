@@ -13,7 +13,7 @@ class Employee(Model, UserMixin):
    __table_args__ = {'autoload':True, 'autoload_with':DatabaseService.DBEngine()}
    service = EmployeeService()
 
-   def __init__():
+   def __init__(self):
       self.is_authenticated = True
 
    def setCredentials(self, username, passw):
@@ -44,6 +44,18 @@ class Employee(Model, UserMixin):
       print employee
       if (employee != None):
         employee.new = False
+      return employee
+
+   @staticmethod
+   def getAllExcluding(ids):
+      employee = Employee.service.getAllByFilter(ids)
+      print employee
+      return employee
+
+   @staticmethod
+   def getAll():
+      employee = Employee.service.getAll()
+      print employee
       return employee
 
    @staticmethod

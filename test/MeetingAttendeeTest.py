@@ -27,7 +27,7 @@ class MeetingAttendeeTest:
           MeetingAttendee.delete(meeting_attn)
 
     def updateMeetingAttendee(self):
-       meeting_attn = MeetingAttendee.getByName("ac12")
+       meeting_attn = MeetingAttendee.getByEmployeeAndMeetingId(10,3)
        print meeting_attn
        meeting_attn.accepted = "Y"
        meeting_attn.notified = "Noooo"

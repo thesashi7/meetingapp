@@ -1,29 +1,10 @@
 $(document).ready(function() {
 window.onload = function(){
 
-        $('#accepted-tab').click();
+        $('#own-tab').click();
 }
 
-var idleTime = 0;
-$(document).ready(function () {
-    //Increment the idle time counter every minute.
-    var idleInterval = setInterval(timerIncrement, 1000); // 1 minute
 
-    //Zero the idle timer on mouse movement.
-    $(this).mousemove(function (e) {
-        idleTime = 0;
-    });
-    $(this).keypress(function (e) {
-        idleTime = 0;
-    });
-});
-
-function timerIncrement() {
-    idleTime = idleTime + 1;
-    if (idleTime > 10) { // 20 minutes
-        //window.location.reload();
-    }
-}
 
 
 $(" #pending-tab, #accepted-tab, #own-tab").click(function(){
@@ -85,16 +66,30 @@ function confirmCompleteAppt(id)
    }
 }
 
-function confirmDeleteStylist(id)
+function confirmCancelMeeting(id)
 {
-   var c = confirm("You are about to delete this record. Are you sure?");
+   var c = confirm("You are about to cancel this meeting. Are you sure?");
 
    id_num = id;
    id_name = "delete_s";
    id_name = id_name.concat(id_num.toString());
 
    if(c==true){
-      document.getElementById(id_name).click();
+     var request = $.ajax({
+      method: "POST",
+      type: "POST",
+      url: "cancelmeeting",
+      data:'&meeting_id='+id_num
+    });
+
+   request.done(function(html) {
+        alert("Request success");
+        window.location.reload();
+    });
+
+  request.fail(function(jqXHR, textStatus) {
+        alert( "Request failed: " + textStatus );
+    });
    }
    else{
 

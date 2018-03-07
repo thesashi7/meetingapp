@@ -3,6 +3,18 @@ from werkzeug.security import check_password_hash
 
 class EmployeeService(DatabaseService):
 
+   def getAll(self):
+     from models.Employee import Employee
+     employee = None
+     employee = self.session.query(Employee).all()
+     return employee
+
+   def getAllByFilter(self, emp_ids):
+     from models.Employee import Employee
+     employees = None
+     employees = self.session.query(Employee).filter(~Employee.employee_id.in_(emp_ids)).all()
+     return employees
+
    def get(self, id, serialize = False):
      from models.Employee import Employee
      employee = None

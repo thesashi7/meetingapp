@@ -1,4 +1,5 @@
 from Model import Model
+from models.Meeting import Meeting
 from services.RoomService import RoomService
 from services.DatabaseService import DatabaseService
 
@@ -8,6 +9,29 @@ class Room(Model):
    __table_args__ = {'autoload':True, 'autoload_with':DatabaseService.DBEngine()}
    service = RoomService()
 
+   @staticmethod
+   def getById(room_id):
+       room = Room.service.get(room_id)
+       return room
+       
+   @staticmethod
+   def getAvailableRooms(start, end):
+       meetings = Meeting.getByTime(str(start), str(end))
+       room_ids = list()
+       for meet in meetings:
+           room_ids.append(meet.room_id)
+           print("r_id:"+room_id)
+       rooms = None
+       if( len(room_ids) > 0):
+           rooms = Room.service.getAllByFilter(room_ids)
+       else:
+           rooms = Room.service.getAll()
+       return rooms
+
+   @staticmethod
+   def getAll():
+       room = Room.service.getAll()
+       return room
 
    @staticmethod
    def getByName(name):

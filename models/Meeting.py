@@ -8,6 +8,23 @@ class Meeting(Model):
    __table_args__ = {'autoload':True, 'autoload_with':DatabaseService.DBEngine()}
    service = MeetingService()
 
+   def getRoom(self):
+       from models.Room import Room
+       room = Room.getById(self.room_id)
+       return room
+
+   def update(self):
+       Meeting.service.update(self)
+
+   @staticmethod
+   def getById(meet_id):
+       meeting = Meeting.service.get(meet_id)
+       return meeting
+
+   @staticmethod
+   def getByTime(start, end):
+       meeting = Meeting.service.getByTime(start, end)
+       return meeting
 
    @staticmethod
    def getByMeetingId(id):
@@ -21,17 +38,9 @@ class Meeting(Model):
 
    @staticmethod
    def add(meeting):
-      old_meeting = Meeting.service.getByEmployeeId(
-        meeting.employee_id)
-      if (old_meeting is not None):
-         "throw exception user already exists"
-         return False
       Meeting.service.add(meeting)
       return True
 
    @staticmethod
    def delete(meeting):
        return Meeting.service.delete(meeting)
-
-   def update(self):
-       Meeting.service.update(self)
