@@ -1,0 +1,186 @@
+body, div, dl, dt, dd, h1, h2, h3, h4, h5, h6, p, pre, code, blockquote {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+}
+
+table, th, td {
+    border: 1px solid #cccccc;
+    border-collapse: collapse;
+    border-spacing: 0;
+    padding: 4px;
+    vertical-align: top;
+    -webkit-border-horizontal-spacing: 0;
+    -webkit-border-vertical-spacing: 0;
+}
+
+p.Basic-Paragraph {
+    color: #000000;
+    font-family: 'Asap', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1.2;
+    margin: 0;
+    orphans: 1;
+    page-break-after: auto;
+    page-break-before: auto;
+    text-align: left;
+    text-decoration: none;
+    text-indent: 0;
+    text-transform: none;
+    widows: 1;
+}
+
+td.padded {
+    padding: 19px 8px 0;
+}
+
+td.padded-B {
+    padding: 6px 13px 16px 12px;
+    vertical-align: bottom;
+}
+
+td.padded-B2 {
+    padding: 6px 4px 16px;
+    vertical-align: bottom;
+}
+
+td.padded-B3 {
+    padding: 6px 12px 16px 13px;
+    vertical-align: bottom;
+}
+
+td.padded-LB {
+    border-width: 0;
+    padding-bottom: 16px;
+    padding-left: 80px;
+    padding-right: 0;
+}
+
+td.noTopBorder {
+    border-top: none;
+}
+
+td.noBottomBorder {
+    border-bottom: none;
+}
+
+.noBorder {
+    border: none;
+}
+
+td.R-pR {
+    border: 0;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 0 9px 0 0;
+    text-align: right;
+}
+
+.date {
+    padding: 6px 13px 11px;
+    border-bottom: 2px solid #aaaaaa;
+    height: 80px;
+}
+
+p.alignR {
+    text-align: right;
+}
+
+p.alignCenter {
+    text-align: center;
+}
+
+span.AsapMedium48 {
+    font-family: "Asap Medium", sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+span.AsapMedium22 {
+    font-family: "Asap Medium", sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+span.SourceSans {
+    font-family: "Source Sans Pro", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+}
+
+span.SourceSansBold30 {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+span.SourceSans24 {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: normal;
+}
+
+span.SourceSans10 {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: normal;
+}
+
+col.weekInView {
+    width: 871px;
+}
+
+col.weekSelectorLeftArrow {
+    width: 53px;
+}
+
+col.todayButton {
+    width: 98px;
+}
+
+col.weekSelectorRightArrow {
+    width: 54px;
+}
+
+tr.calendarTitle {
+    height: 65px;
+}
+
+col.emptyLeftCol {
+    width: 30px;
+    border: none;
+}
+
+col.timeLabels {
+    width: 50px;
+}
+
+col.day {
+    width: 140px;
+}
+
+col.wkndDay {
+    background-color: #e6e6e6;
+}
+
+col.today {
+    background-color: #ffffd9;
+}
+
+col.emptyRightCol {
+    width: 135px;
+    border: none;
+}
+
+tr.timeSlotRow {
+    height: 22px;
+}

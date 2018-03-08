@@ -4,7 +4,7 @@ from models.Employee import Employee
 class EmployeeTest:
     def addEmployee(self):
         emp = Employee()
-        emp.setCredentials("sashi", "thapaliya")
+        emp.setCredentials("sam", "hunt")
         print Employee.add(emp)
 
     def getAll(self):
@@ -16,7 +16,7 @@ class EmployeeTest:
     def getEmployee(self):
         emp = Employee.getByCredential("sam", "hunt")
         print emp
-        if emp != None:
+        if emp is not None:
             print emp.username
             print emp.password
             print emp.employee_id
@@ -24,7 +24,7 @@ class EmployeeTest:
     def deleteEmployee(self):
         emp = Employee.getByCredential("sam", "hunt")
         print emp
-        if emp != None:
+        if emp is not None:
             print emp.username
             Employee.delete(emp)
 
@@ -35,7 +35,7 @@ class EmployeeTest:
 
     def run(self):
         self.getAll()
-        # self.addEmployee()
+        self.addEmployee()
         # self.getEmployee()
         # self.deleteEmployee()
         # self.updateEmployee()
