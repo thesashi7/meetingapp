@@ -16,17 +16,10 @@ class PageController(BaseController):
         self.view = PageView()
 
     def index(self):
+       from controllers.EmployeeController import EmployeeController
        if (current_user.is_authenticated == True):
-          return self.view.render_calendar()
+          return EmployeeController().calendar()
        return self.view.render_landing()
 
     def schedule(self):
         return self.view.render_schedule()
-
-    def dashboard(self):
-        owned_m = Meeting.getByEmployeeId(current_user.employee_id)
-        pending = MeetingAttendee.getByEmployeeAndStatus(current_user.employee_id, 'N')
-        accepted = MeetingAttendee.getByEmployeeAndStatus(current_user.employee_id, 'Y')
-        for m in owned_m:
-            print(m.end_time.year)
-        return self.view.render_dashboard(owned_m, pending, accepted)

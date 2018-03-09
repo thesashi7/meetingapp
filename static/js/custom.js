@@ -2,32 +2,7 @@ window.onload = function() {
   showStep1();
 };
 
-function selectLocation(location)
-{
-    //alert(location.value);
-    var day = document.getElementsByName('first_day')[0];
-    var month = document.getElementsByName('first_month')[0];
-    var year = document.getElementsByName('first_year')[0];
-    day = day.value;
-    month = month.value;
-    year = year.value;
-    //alert(month+" "+day+" "+year);
-    var request = $.ajax({
-      method: "POST",
-      type: "POST",
-      url: "calLocation",
-      data:'&location_id='+location.value+'&day='+day+'&month='+month+'&year='+year
-    });
 
-   request.done(function(html) {
-        //alert("Request success");
-         $('#calendar').html(html);
-    });
-
-  request.fail(function(jqXHR, textStatus) {
-        //alert( "Request failed: " + textStatus );
-    });
-}
 
 function calendar(day,month,year)
 {
@@ -193,26 +168,40 @@ function showStep3()
 function step2()
 {
   alert("step2");
-  var date;
-  date = document.getElementById("date").value;
+
+  year = document.getElementById("date").value;
   start_time = document.getElementById("starttime").value;
   end_time = document.getElementById("endtime").value;
-  alert(date);
-  alert(start_time.length);
   if(date.length == 0 || start_time.length==0 || end_time.length==0)
   {
     alert("Please select date and time!");
     return false;
   }
+  var list = document.getElementById("listnames").querySelectorAll(".select");
+  alert(list.length);
 
-  var data_date = JSON.stringify({"date":date, "start_time":start_time,
-    "end_time":end_time});
-  alert(data_date);
+  var data_json = {
+      selected: [],
+      start: start_time,
+      end: end_time,
+      date: year
+  };
+
+  list.forEach(function(el) {
+    alert(el.children[0].innerHTML);
+    data_json.selected.push({
+        "employee_id" : el.children[0].innerHTML
+    });
+  })
+
+  var data = JSON.stringify(data_json);
+  alert(data);
+
   var request = $.ajax({
     method: "POST",
     type: "POST",
     url: "scheduleroom",
-    data: data_date,
+    data: data,
     contentType: "application/json"
   });
 

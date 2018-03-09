@@ -12,7 +12,12 @@ class MeetingAttendee(Model):
        from models.Meeting import Meeting
        meeting = Meeting.getById(self.meeting_id)
        return meeting
-       
+
+   @staticmethod
+   def getById(id):
+       meeting_attn = MeetingAttendee.service.get(id)
+       return meeting_attn
+        
    @staticmethod
    def getByMeetingId(id):
        meeting_attn= MeetingAttendee.service.getByMeetingId(id)

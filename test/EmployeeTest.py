@@ -4,7 +4,7 @@ class EmployeeTest:
 
     def addEmployee(self):
        emp = Employee()
-       emp.setCredentials("sashi","thapaliya")
+       emp.setCredentials("sas","thapaliya")
        print Employee.add(emp)
 
     def getAll(self):
@@ -35,8 +35,8 @@ class EmployeeTest:
        Employee.update(emp)
 
     def run(self):
-        self.getAll()
-       #self.addEmployee()
+    #self.getAll()
+       self.addEmployee()
        #self.getEmployee()
        #self.deleteEmployee()
        #self.updateEmployee()

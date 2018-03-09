@@ -95,7 +95,7 @@
                                   <ul class="nav nav-tabs">
                           <li id="own-tab" role="presentation" class="active"><a>Owned Meetings</a></li>
                           <li id="accepted-tab" role="presentation" ><a>Accepted Meetings</a></li>
-                          <li id="accepted-tab" role="presentation" ><a>Pending Requests</a></li>
+                          <li id="pending-tab" role="presentation" ><a>Pending Requests</a></li>
                           </ul>
                                   <table class="table table-striped table-hover">
                                     <caption style="padding-top: 0px;">
@@ -115,7 +115,8 @@
                                       </thead>
 
                                       <tbody id="own-table">
-                                          {% for om in owned_m %}
+                                          {% if owned_m is not none %}
+                                             {% for om in owned_m %}
 
                                               <tr>
 
@@ -131,44 +132,51 @@
                                                   </th>
                                               </tr>
                                                              {% endfor %}
+                                                             {% endif %}
 
 
 
                                       </tbody>
 
                    <tbody id="accepted-table">
+                     {% if accepted_m is not none %}
+                        {% for ac in accepted_m %}
+                        {% set om = ac.getMeeting() %}
 
-                                              <tr>
-
-
-
-
-                                              </tr>
+                         <tr>
 
 
-                                                              <!--<tr>
-                                                                  <th>2</th>
-                                                                  <th>1/4/1234</th>
-                                                                  <th>Tony Kaku</th>
-                                                                  <th><button class="btn btn-success btn-xs">View & take <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button></th>
-                                                              </tr>-->
+                           <th >{{om.meeting_id}}</th>
+                           <th >{{om.start_time.year}}</th>
+                           <th >{{om.start_time.hour}}:{{om.start_time.minute}}</th>
+
+                           <th >{{om.end_time.hour}}:{{om.end_time.minute}}</th>
+                             <th >{{om.getRoom().name}}</th>
+                             </th>
+                         </tr>
+                                        {% endfor %}
+                                        {% endif %}
                                       </tbody>
                                       <tbody id="pending-table">
 
-                                                                 <tr>
+                                        {% if pending_m is not none %}
+                                           {% for pn in pending_m %}
+                                           {% set om = pn.getMeeting() %}
+                                            <tr>
 
 
+                                              <th >{{om.meeting_id}}</th>
+                                              <th >{{om.start_time.year}}</th>
+                                              <th >{{om.start_time.hour}}:{{om.start_time.minute}}</th>
 
-
-                                                                 </tr>
-
-
-                                                                                 <!--<tr>
-                                                                                     <th>2</th>
-                                                                                     <th>1/4/1234</th>
-                                                                                     <th>Tony Kaku</th>
-                                                                                     <th><button class="btn btn-success btn-xs">View & take <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button></th>
-                                                                                 </tr>-->
+                                              <th >{{om.end_time.hour}}:{{om.end_time.minute}}</th>
+                                                <th >{{om.getRoom().name}}</th>
+                                                <th><button class="btn btn-success btn-xs" onclick="acceptMeeting({{pn.meeting_attendee_id}});">Accept <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+                                                  <button class="btn btn-danger btn-xs" onclick="declineMeeting({{pn.meeting_attendee_id}});">Decline <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+                                                </th>
+                                            </tr>
+                                                           {% endfor %}
+                                                           {% endif %}
                                                          </tbody>
                                   </table>
 

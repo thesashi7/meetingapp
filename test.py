@@ -4,8 +4,10 @@ from test.RoomTest import RoomTest
 from test.MeetingTest import MeetingTest
 from test.MeetingAttendeeTest import MeetingAttendeeTest
 from test.EmployeeScheduleTest import EmployeeScheduleTest
+from test.NotificationTest import NotificationTest
 from datetime import datetime
 from datetime import timedelta
+
 """
 Testing Employee
 
@@ -21,7 +23,7 @@ adminTest.run()
 #datetime_object = datetime.strptime('03.03.2018  12:50 AM', '%m.%d.%Y %I:%M %p')
 #print datetime_object
 
-test = MeetingTest()
+test = NotificationTest()
 test.run()
 """start_date = datetime.strptime("03.03.2018 01:49 PM", '%m.%d.%Y %I:%M %p')
 print start_date

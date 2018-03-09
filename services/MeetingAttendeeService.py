@@ -6,10 +6,7 @@ class MeetingAttendeeService(DatabaseService):
      from models.MeetingAttendee import MeetingAttendee
      meeting_att= None
      meeting_att= self.session.query(MeetingAttendee).get(id)
-     if serialize:
-        return room.serialize()
-     else:
-        return room
+     return meeting_att
 
    def getByEmployeeAndStatus(self, emp_id, ac_stat):
      from models.MeetingAttendee import MeetingAttendee

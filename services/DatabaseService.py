@@ -6,7 +6,8 @@ from config.config import app_config
 class DatabaseService:
     global ENGINE
     ENGINE = app_config['development'].SQLALCHEMY_DATABASE_URI
-
+    db_engine =create_engine(ENGINE)
+    
     def __init__(self):
         """
         :param engine: The engine route and login details
@@ -17,8 +18,8 @@ class DatabaseService:
         if not ENGINE:
             raise ValueError('The values specified in engine parameter has to be supported by SQLAlchemy')
         self.engine = ENGINE
-        db_engine = DatabaseService.DBEngine(self.engine)
-        db_session = sessionmaker(bind=db_engine)
+        #db_engine = DatabaseService.DBEngine(self.engine)
+        db_session = sessionmaker(bind=DatabaseService.db_engine)
         self.session = db_session()
 
     def init_database(self):

@@ -8,6 +8,4 @@ from flask import Response
 
 """
 class BaseController:
-
-    def __init__(self):
-       self.notification = False
+    pass

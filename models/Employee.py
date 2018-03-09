@@ -80,6 +80,5 @@ class Employee(Model, UserMixin):
    def delete(employee):
        return Employee.service.delete(employee)
 
-   @staticmethod
-   def update(employee):
-      Employee.service.update(employee)
+   def update(self):
+      Employee.service.update(self)

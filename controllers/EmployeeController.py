@@ -10,6 +10,9 @@ from AccountController import AccountController
 from PageController import PageController
 from models.Employee import Employee
 from views.PageView import PageView
+from views.EmployeeView import EmployeeView
+from models.Meeting import Meeting
+from models.MeetingAttendee import MeetingAttendee
 import sys
 
 """
@@ -20,7 +23,7 @@ import sys
 class EmployeeController(AccountController):
 
    def __init__(self):
-      self.view = PageView()
+      self.view = EmployeeView()
 
    def get(self):
       return render_template('calendar.html')
@@ -50,6 +53,10 @@ class EmployeeController(AccountController):
 
    def register(self):
        pass
+       
+   def calendar(self):
+       view = EmployeeView()
+       return view.render_calendar()
 
    def setting(self):
        #check for request
@@ -65,3 +72,16 @@ class EmployeeController(AccountController):
           else:
             self.view.setFlashMessage("fail","Update Failed!")
        return self.view.render_employee_setting(current_user)
+
+   def dashboard(self):
+       owned_m = Meeting.getByEmployeeId(current_user.employee_id)
+       pending = MeetingAttendee.getByEmployeeAndStatus(current_user.employee_id, 'P')
+       accepted = MeetingAttendee.getByEmployeeAndStatus(current_user.employee_id, 'Y')
+       if owned_m is not None:
+          for m in owned_m:
+              print(m.end_time.year)
+       if pending is not None:
+          for m in pending:
+              print(m)
+              print(m.getMeeting().end_time)
+       return self.view.render_dashboard(owned_m, pending, accepted)

@@ -1,4 +1,5 @@
 from DatabaseService import DatabaseService
+from sqlalchemy import or_, and_
 
 class EmployeeScheduleService(DatabaseService):
 
@@ -17,6 +18,17 @@ class EmployeeScheduleService(DatabaseService):
      if(len(employee_schedule)>0):
         return employee_schedule
      return None
+
+   def getByTime(self, emp_id, start, end):
+       from models.EmployeeSchedule import EmployeeSchedule
+       employee_schedules = None
+       employee_schedules = self.session.query(EmployeeSchedule).filter(
+         and_(
+         or_(
+          and_(EmployeeSchedule.start_time <= start, EmployeeSchedule.end_time >= start),
+          and_(EmployeeSchedule.start_time <= end, EmployeeSchedule.end_time >= end))
+          ), EmployeeSchedule.employee_id == emp_id).all()
+       return employee_schedules
 
    def add(self, employee_schedule):
      from models.EmployeeSchedule import EmployeeSchedule

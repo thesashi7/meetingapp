@@ -49,9 +49,10 @@ def schedule_time():
 @login_required
 def schedule_room():
    content = request.get_json(silent=True)
-   print("--------------------------------------------")
+   print("==================================")
    print (content)
-   return MeetingController().scheduleRoom(content)
+   #validate and schedule
+   return MeetingController().validateAttendeesTime(content)
 
 @app.route('/submitmeeting', methods=['POST'])
 @login_required
@@ -64,7 +65,7 @@ def sumbit_meeting():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return PageController().dashboard()
+    return EmployeeController().dashboard()
 
 @app.route('/cancelmeeting', methods=['POST'])
 @login_required
@@ -76,3 +77,13 @@ def cancel_meeting():
 @login_required
 def emp_setting():
     return EmployeeController().setting()
+
+@app.route('/acceptmeeting',methods=['POST'])
+@login_required
+def acceptMeeting():
+    return MeetingController().acceptMeeting(request.form.get('meeting_attendee_id'))
+
+@app.route('/declinemeeting',methods=['POST'])
+@login_required
+def declineMeeting():
+    return MeetingController().declineMeeting(request.form.get('meeting_attendee_id'))
