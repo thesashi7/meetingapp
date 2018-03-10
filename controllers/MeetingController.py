@@ -28,13 +28,15 @@ class MeetingController():
         year = data_json['date']
         start_time = data_json['start']
         end_time = data_json['end']
-        print(year)
-        exit()
+
         start_date = datetime.strptime(year+" "+start_time, '%d.%m.%Y %I:%M %p')
         end_date = datetime.strptime(year+" "+end_time, '%d.%m.%Y %I:%M %p')
         new_meeting.start_time = start_date
         new_meeting.end_time = end_date
         Meeting.add(new_meeting)
+        #create employee schedule
+        self.createEmployeeSchedule(current_user.employee_id, new_meeting)
+        #add meeting attendees
         for em in data_json['selected']:
             for attribute, value in em.iteritems():
                 meeting_attn = MeetingAttendee()
@@ -47,6 +49,7 @@ class MeetingController():
                 notification.employee_id = value
                 notification.active = "Y"
                 notification.message = "Meeting Request from "+current_user.username
+                notification.meeting_id = new_meeting.meeting_id
                 Notification.add(notification)
                 meeting_attn.notification_id = notification.notification_id
                 MeetingAttendee.add(meeting_attn)

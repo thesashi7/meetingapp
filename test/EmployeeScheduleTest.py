@@ -17,6 +17,17 @@ class EmployeeScheduleTest:
            for em_s in employee_schedule:
                print em_s.employee_schedule_id
 
+    def getDaySchedule(self):
+        start_date = "2018-09-03 01:09:00"
+        end_date = "2018-09-03 11:09:00"
+        employee_schedules= EmployeeSchedule.getByTime(11, start_date, end_date)
+        for sch in employee_schedules:
+            print ("////////////////////////")
+            print (sch.start_time)
+            print (sch.end_time)
+            print (sch.available)
+            print ("////////////////////////")
+
 
     def deleteEmployeeSchedule(self):
        employee_schedule = EmployeeSchedule.getByEmployeeId(10)
@@ -33,7 +44,8 @@ class EmployeeScheduleTest:
        employee_schedule.update()
 
     def run(self):
-       self.addEmployeeSchedule()
-       self.getEmployeeSchedule()
-       self.deleteEmployeeSchedule()
+        self.getDaySchedule()
+       #self.addEmployeeSchedule()
+       #self.getEmployeeSchedule()
+       #self.deleteEmployeeSchedule()
        #self.updateEmployeeSchedule()

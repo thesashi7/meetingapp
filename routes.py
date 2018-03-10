@@ -2,6 +2,7 @@ from __future__ import print_function
 from controllers.PageController import PageController
 from controllers.MeetingController import MeetingController
 from controllers.EmployeeController import EmployeeController
+from controllers.NotificationController import NotificationController
 from index import app
 import sys
 from models.Employee import Employee
@@ -87,3 +88,13 @@ def acceptMeeting():
 @login_required
 def declineMeeting():
     return MeetingController().declineMeeting(request.form.get('meeting_attendee_id'))
+
+@app.route('/notify', methods=['GET','POST'])
+@login_required
+def notifications():
+    return NotificationController().get()
+
+@app.route('/notify/seen', methods=['POST'])
+@login_required
+def notificationUpdate():
+    return NotificationController().update(request.form.get('notification_id'))

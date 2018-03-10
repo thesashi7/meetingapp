@@ -1,3 +1,4 @@
+from __future__ import print_function
 from DatabaseService import DatabaseService
 from sqlalchemy import or_, and_
 
@@ -21,13 +22,18 @@ class EmployeeScheduleService(DatabaseService):
 
    def getByTime(self, emp_id, start, end):
        from models.EmployeeSchedule import EmployeeSchedule
+       print ("====>"+str(emp_id))
+       print (str(start)+" "+str(end))
        employee_schedules = None
        employee_schedules = self.session.query(EmployeeSchedule).filter(
          and_(
          or_(
           and_(EmployeeSchedule.start_time <= start, EmployeeSchedule.end_time >= start),
-          and_(EmployeeSchedule.start_time <= end, EmployeeSchedule.end_time >= end))
-          ), EmployeeSchedule.employee_id == emp_id).all()
+          and_(EmployeeSchedule.start_time <= end, EmployeeSchedule.end_time >= end),
+          and_(start <= EmployeeSchedule.start_time, end >= EmployeeSchedule.start_time),
+          and_(start <= EmployeeSchedule.end_time, end >= EmployeeSchedule.end_time)
+
+          ), EmployeeSchedule.employee_id == str(emp_id))).all()
        return employee_schedules
 
    def add(self, employee_schedule):

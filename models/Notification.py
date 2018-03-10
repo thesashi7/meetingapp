@@ -2,6 +2,7 @@ from __future__ import print_function
 from models.Model import Model
 from services.NotificationService import NotificationService
 from services.DatabaseService import DatabaseService
+import json
 
 class Notification(Model):
 
@@ -14,6 +15,19 @@ class Notification(Model):
    def update(self):
        Notification.service.update(self)
 
+   def toJson(self):
+       data = self.toDict()
+       return json.dumps(data)
+
+   def toDict(self):
+       data = {
+                "id":self.notification_id,
+                "employee_id":self.employee_id,
+                "message":self.message,
+                "active": self.active,
+                "meeting_id":self.meeting_id
+       }
+       return data
    @staticmethod
    def getById(not_id):
        notification = Notification.service.get(not_id)
