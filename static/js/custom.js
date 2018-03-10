@@ -48,8 +48,9 @@ function sendDesktopNotification(text) {
       });
       notification.onclick = function(event) {
         event.preventDefault(); // prevent the browser from focusing the Notification's tab
-        //alert(obj.meeting_id);
-        if(obj.meeting_id)
+        //alert(obj.meeting_id)
+        //alert(obj.manual_deletion);
+        if(obj.manual_deletion == "N")
         {
            window.open('./dashboard', '_blank');
         }

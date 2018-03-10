@@ -20,6 +20,11 @@ class EmployeeScheduleService(DatabaseService):
         return employee_schedule
      return None
 
+   def getByMeetingId(self, meeting_id):
+     from models.EmployeeSchedule import EmployeeSchedule
+     employee_schedules = self.session.query(EmployeeSchedule).filter(EmployeeSchedule.meeting_id == str(meeting_id)).all()
+     return employee_schedules
+
    def getByTime(self, emp_id, start, end):
        from models.EmployeeSchedule import EmployeeSchedule
        print ("====>"+str(emp_id))

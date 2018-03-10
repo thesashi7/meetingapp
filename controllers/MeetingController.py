@@ -45,13 +45,11 @@ class MeetingController():
                 meeting_attn.employee_id = value
                 meeting_attn.accepted = "P"
 
+                #create notification
+                message = "Meeting Request from "+current_user.username
+                notification = self.createNotification(value, message, "Y", new_meeting.meeting_id,
+                "N")
 
-                notification = Notification()
-                notification.employee_id = value
-                notification.active = "Y"
-                notification.message = "Meeting Request from "+current_user.username
-                notification.meeting_id = new_meeting.meeting_id
-                Notification.add(notification)
                 meeting_attn.notification_id = notification.notification_id
                 MeetingAttendee.add(meeting_attn)
                 print (attribute, value)
@@ -69,6 +67,12 @@ class MeetingController():
 
     def cancelMeeting(self, meeting_id):
        meeting = Meeting.getById(meeting_id)
+       # need to delete previous meeting associated with this meeting
+       past_notifications = Notification.getByMeetingId(meeting_id)
+       print (past_notifications)
+       for past_notification in past_notifications:
+           Notification.delete(past_notification)
+
        # get all the meeting attendees
        #  and send them all notification of cancelation
        attendees = MeetingAttendee.getByMeetingId(meeting_id)
@@ -76,18 +80,13 @@ class MeetingController():
        for att in attendees:
            print (att)
            if att.accepted == "Y":
-               notification = Notification()
-               notification.employee_id = att.employee_id
-               notification.message = "Meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)+" is cancelled"
-               notification.active = "Y"
-               Notification.add(notification)
-           # need to delete previous meeting associated with this meeting
-           past_notifications = Notification.getByMeetingId(att.meeting_id)
-           print (past_notifications)
-           for past_notification in past_notifications:
-               Notification.delete(past_notification)
+               message = "Meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)+" is cancelled"
+               notification = self.createNotification(att.employee_id, message, "Y", meeting_id, "Y")
+
+
            MeetingAttendee.delete(att)
 
+       self.deleteEmployeeSchedule(meeting.meeting_id)
        Meeting.delete(meeting)
        return EmployeeController().dashboard()
 
@@ -144,20 +143,27 @@ class MeetingController():
 
         return view.render_schedule_add_room(room_list)
 
+    def deleteEmployeeSchedule(self, meeting_id):
+        schedules = EmployeeSchedule.getByMeetingId(meeting_id)
+        for sch in schedules:
+            EmployeeSchedule.delete(sch)
+
     def createEmployeeSchedule(self, employee_id, meeting):
         employee_schedule = EmployeeSchedule()
         employee_schedule.employee_id = employee_id
         employee_schedule.start_time = meeting.start_time
         employee_schedule.end_time = meeting.end_time
         employee_schedule.available = "N"
+        employee_schedule.meeting_id = meeting.meeting_id
         EmployeeSchedule.add(employee_schedule)
 
-    def createNotification(self, employee_id,  msg, active, meeting_id=""):
+    def createNotification(self, employee_id,  msg, active="Y", meeting_id="", deletion="Y"):
         notification = Notification()
         notification.employee_id = employee_id
         notification.active = active
         notification.message = msg
         notification.meeting_id = meeting_id
+        notification.manual_deletion = deletion
         Notification.add(notification)
         return notification
 
@@ -171,9 +177,8 @@ class MeetingController():
         #create Notification
         attendee = Employee.getById(meeting_att.employee_id)
         message = attendee.username+" has accepted your request for meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)
-        notification.meeting_id = meeting_att.meeting_id
-        self.createNotification(meeting.employee_id, meeting_att_id, message, active,
-            meeting_att.meeting_id)
+        self.createNotification(meeting.employee_id, message,"Y",
+            meeting_att.meeting_id,"Y")
 
         # need to update current notification of this employee
         past_notification = Notification.getById(meeting_att.notification_id)
@@ -186,15 +191,12 @@ class MeetingController():
         meeting_att.accepted = "N"
         meeting_att.update()
         meeting = Meeting.getById(meeting_att.meeting_id)
-        notification = Notification()
-        print (notification)
-        notification.employee_id = meeting.employee_id
-        notification.active = "Y"
-        attendee = Employee.getById(meeting_att.employee_id)
-        notification.message = attendee.username+" has declined your request for meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)
-        notification.meeting_id = meeting_att.meeting_id
 
-        Notification.add(notification)
+        #create new notification
+        attendee = Employee.getById(meeting_att.employee_id)
+        message = attendee.username+" has declined your request for meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)
+        notification = self.createNotification(meeting.employee_id, message, "Y", meeting_att.meeting_id, "Y")
+
         # need to update current notification of this employee
         past_notification = Notification.getById(meeting_att.notification_id)
         past_notification.active = "N"

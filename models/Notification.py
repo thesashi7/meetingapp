@@ -25,7 +25,8 @@ class Notification(Model):
                 "employee_id":self.employee_id,
                 "message":self.message,
                 "active": self.active,
-                "meeting_id":self.meeting_id
+                "meeting_id":self.meeting_id,
+                "manual_deletion":self.manual_deletion
        }
        return data
    @staticmethod

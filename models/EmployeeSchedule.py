@@ -37,6 +37,12 @@ class EmployeeSchedule(Model):
                    break
        return avail
 
+
+   @staticmethod
+   def getByMeetingId(meeting_id):
+       employee_schedules = EmployeeSchedule.service.getByMeetingId(meeting_id)
+       return employee_schedules
+
    @staticmethod
    def getByTime(emp_id, start, end):
        employee_schedules = EmployeeSchedule.service.getByTime(emp_id, start, end)
