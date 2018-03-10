@@ -28,8 +28,10 @@ class MeetingController():
         year = data_json['date']
         start_time = data_json['start']
         end_time = data_json['end']
-        start_date = datetime.strptime(year+" "+start_time, '%m.%d.%Y %I:%M %p')
-        end_date = datetime.strptime(year+" "+end_time, '%m.%d.%Y %I:%M %p')
+        print(year)
+        exit()
+        start_date = datetime.strptime(year+" "+start_time, '%d.%m.%Y %I:%M %p')
+        end_date = datetime.strptime(year+" "+end_time, '%d.%m.%Y %I:%M %p')
         new_meeting.start_time = start_date
         new_meeting.end_time = end_date
         Meeting.add(new_meeting)
