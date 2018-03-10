@@ -23,6 +23,8 @@ class Timeslot:
         timeslots = []
         start = datetime.strptime(date+" "+start_time, "%d.%m.%Y %I:%M %p")
         end = datetime.strptime(date+" "+end_time, "%d.%m.%Y %I:%M %p")
+        if datetime.now() > start or datetime.now() > end:
+            return []
         current_start = start
         current_end = current_start + timedelta(minutes = int(length))
         while(current_end < end):
@@ -30,18 +32,20 @@ class Timeslot:
             timeslots.append(slot)
             current_start = current_end
             current_end = current_start + timedelta(minutes = int(length))
-        slot = Timeslot(current_start, current_end)
-        timeslots.append(slot)
+        if end >= current_end:
+            slot = Timeslot(current_start, current_end)
+            timeslots.append(slot)
         return timeslots
 
 
     @staticmethod
     def getAvailableTimeslots(length, employee_id, date):
-        start = datetime.strptime(date+" "+start_time, "%m.%d.%Y %I:%M %p")
-        end = datetime.strptime(date+" "+end_time, "%m.%d.%Y %I:%M %p")
+        start = datetime.strptime(date+" "+start_time, "%d.%m.%Y %I:%M %p")
+        end = datetime.strptime(date+" "+end_time, "%d.%m.%Y %I:%M %p")
         schedules = EmployeeSchedule.getByTime(employee_id, start, end)
         timeslots = Timeslot.generateTimeslots(length, date)
         print(schedules)
+
         for schedule in schedules:
             print("--------------------")
             if schedule.available == "N":

@@ -53,7 +53,7 @@ class EmployeeController(AccountController):
 
    def register(self):
        pass
-       
+
    def calendar(self):
        view = EmployeeView()
        return view.render_calendar()
@@ -62,15 +62,19 @@ class EmployeeController(AccountController):
        #check for request
        # if post then validate and update
        if request.method == 'POST':
-          username = request.form['username']
-          password = request.form['password']
-          if len(username) >2 and len(password) > 2:
-              current_user.username  = username
-              current_user.setPassword(password)
-              Employee.update(current_user)
-              self.view.setFlashMessage("success","Successfully updated")
-          else:
-            self.view.setFlashMessage("fail","Update Failed!")
+          if(request.form['type'] == 'credential'):
+              username = request.form['username']
+              password = request.form['password']
+              if len(username) >2 and len(password) > 2:
+                  current_user.username  = username
+                  current_user.setPassword(password)
+                  current_user.update()
+                  self.view.setFlashMessage("success","Successfully updated")
+              else:
+                  self.view.setFlashMessage("fail","Update Failed!")
+          elif(request.form['type'] == 'visible'):
+              current_user.visible = request.form['visible']
+              current_user.update()
        return self.view.render_employee_setting(current_user)
 
    def dashboard(self):

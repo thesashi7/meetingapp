@@ -135,6 +135,7 @@ function showStep3()
 {
   hideAllSteps();
   document.getElementById("step3").style.display = 'block';
+
 }
 
 function step2()
@@ -179,7 +180,7 @@ function step2()
 
   request.done(function(html) {
        alert("Request success");
-       document.getElementById('step3').innerHTML += html;
+       document.getElementById('step3a').innerHTML = html;
    });
 
  request.fail(function(jqXHR, textStatus) {
@@ -187,6 +188,19 @@ function step2()
    });
 
   showStep3();
+}
+
+function selectSlot(year,month, day, start, end)
+{
+  alert("hooo");
+  document.getElementById("date").value = day+"."+month+"."+year;
+  document.getElementById("starttime").value = start;
+  document.getElementById("endtime").value = end;
+  alert(document.getElementById("date").value);
+  alert(document.getElementById("starttime").value);
+  alert(document.getElementById("endtime").value);
+
+  step2();
 }
 
 function step3(room_id)
@@ -246,7 +260,11 @@ function back(from){
         var location = document.getElementsByName('location_id')[0].value;
         date = date.split("-");
         calendarBack(date[1],date[0],date[2],location);*/
-        window.location = 'test.html';
+        //window.location = 'test.html';
+    }
+    else if(from=='3')
+    {
+      showStep2();
     }
 }
 

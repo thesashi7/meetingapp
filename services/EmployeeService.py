@@ -1,5 +1,6 @@
 from DatabaseService import DatabaseService
 from werkzeug.security import check_password_hash
+from sqlalchemy import or_, and_
 
 class EmployeeService(DatabaseService):
 
@@ -9,10 +10,11 @@ class EmployeeService(DatabaseService):
      employee = self.session.query(Employee).all()
      return employee
 
-   def getAllByFilter(self, emp_ids):
+   def getAllByFilter(self, emp_ids, visible='Y'):
      from models.Employee import Employee
      employees = None
-     employees = self.session.query(Employee).filter(~Employee.employee_id.in_(emp_ids)).all()
+     employees = self.session.query(Employee).filter(
+     and_(~Employee.employee_id.in_(emp_ids), Employee.visible == str(visible))).all()
      return employees
 
    def get(self, id, serialize = False):

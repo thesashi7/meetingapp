@@ -47,8 +47,8 @@ class Employee(Model, UserMixin):
       return employee
 
    @staticmethod
-   def getAllExcluding(ids):
-      employee = Employee.service.getAllByFilter(ids)
+   def getAllExcluding(ids, visible='Y'):
+      employee = Employee.service.getAllByFilter(ids, visible)
       print employee
       return employee
 

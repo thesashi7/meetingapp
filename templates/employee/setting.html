@@ -99,7 +99,7 @@
        <div class="well-sm">
 
 
-
+<div class="well">
            <form class="form-horizontal" action="emp-setting" method="post" >
 
              <div class = "row">
@@ -132,9 +132,41 @@
                    class="btn btn-success btn-sm">
                   Save</button></div>
 </div>
+<input name="type" value="credential" hidden />
 
-                                             </form>
-                                         </div>
+</form>
+</div>
+<div class="well">
+<form class="form-horizontal" action="emp-setting" method="post" >
+
+  <div class = "row">
+    <div class = "col-sm-2">
+      Visibility
+    </div>
+    <div class = "col-sm-3">
+    {% if emp.visible == 'Y' %}
+    <input type="radio" name="visible" value="Y" checked> Visible<br>
+    <input type="radio" name="visible" value="N"> Not Visible<br>
+    {% elif emp.visible == 'N' %}
+    <input type="radio" name="visible" value="Y" > Visible<br>
+    <input type="radio" name="visible" value="N" checked> Not Visible<br>
+    {% endif %}
+    <input name="type" value="visible" hidden />
+    </div>
+  </div>
+
+
+  <div class = "row">
+    <div class = "col-sm-4">
+  <button type="submit"
+        name="submit"
+        class="btn btn-success btn-sm">
+       Save</button></div>
+</div>
+
+</form>
+</div>
+</div>
 
 </div>
 	</div>

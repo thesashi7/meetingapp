@@ -4,7 +4,7 @@ class Time:
 
     @staticmethod
     def convertToDateTime(date, time):
-        return datetime.strptime(date+" "+time, '%m.%d.%Y %I:%M %p')
+        return datetime.strptime(date+" "+time, '%d.%m.%Y %I:%M %p')
 
     @staticmethod
     def convertHourToMilitary(hour, min):

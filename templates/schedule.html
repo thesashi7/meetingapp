@@ -88,19 +88,14 @@
         	<div class="well calendar-top" id="calendar">
        <div class="well-sm">
 
-         {% block content %}
-             {% if 1==0 %}
-                 <div></div>
-             {% else %}
-                <div></div>
-             {% endif %}
-
-         {% endblock content %}
 
            <form class="form-horizontal" action="" method="post" >
 
                <div id="step1">
-
+                 <button onclick="back(1);" type="button" class="btn btn-default btn-lg" aria-label="Left Align">
+                    <i style="font-size:24px" class="fa">&#xf053;</i>
+                     <!--<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>-->
+               </button>
                      <legend class="text-center" >Select Attendees
 
                      </legend>
@@ -142,6 +137,10 @@
 	</div>
 
   <div id="step2">
+    <button onclick="back(2);" type="button" class="btn btn-default btn-lg" aria-label="Left Align">
+   <i style="font-size:24px" class="fa">&#xf053;</i>
+    <!--<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>-->
+</button>
     <legend class="text-center" >Select Time
 
     </legend>
@@ -241,7 +240,14 @@
 
   </div>
 
+
   <div id="step3">
+    <button onclick="back(3);" type="button" class="btn btn-default btn-lg" aria-label="Left Align">
+   <i style="font-size:24px" class="fa">&#xf053;</i>
+    <!--<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>-->
+</button>
+<div id="step3a">
+</div>
   </div>
 </div>
 </div></div>

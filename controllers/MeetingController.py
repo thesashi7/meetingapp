@@ -9,6 +9,7 @@ from models.EmployeeSchedule import EmployeeSchedule
 from models.Employee import Employee
 from models.Notification import Notification
 from models.Room import Room
+from models.Timeslot import Timeslot
 from datetime import datetime
 from datetime import timedelta
 from EmployeeController import EmployeeController
@@ -111,7 +112,7 @@ class MeetingController():
                     break
         if avail == False:
             # need to render calendar with avail slots
-            return EmployeeView().render_schedule_calendar(data_json)
+            return self.timeslots(start_date, end_date, data_json)
         print("--------True --------------")
         return self.scheduleRoom(data_json)
 
@@ -151,6 +152,15 @@ class MeetingController():
         employee_schedule.available = "N"
         EmployeeSchedule.add(employee_schedule)
 
+    def createNotification(self, employee_id,  msg, active, meeting_id=""):
+        notification = Notification()
+        notification.employee_id = employee_id
+        notification.active = active
+        notification.message = msg
+        notification.meeting_id = meeting_id
+        Notification.add(notification)
+        return notification
+
     def acceptMeeting(self, meeting_att_id):
         meeting_att = MeetingAttendee.getById(meeting_att_id)
         meeting_att.accepted = "Y"
@@ -159,14 +169,11 @@ class MeetingController():
         self.createEmployeeSchedule(meeting_att.employee_id, meeting)
 
         #create Notification
-        notification = Notification()
-        print (notification)
-        notification.employee_id = meeting.employee_id
-        notification.active = "Y"
         attendee = Employee.getById(meeting_att.employee_id)
-        notification.message = attendee.username+" has accepted your request for meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)
+        message = attendee.username+" has accepted your request for meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)
         notification.meeting_id = meeting_att.meeting_id
-        Notification.add(notification)
+        self.createNotification(meeting.employee_id, meeting_att_id, message, active,
+            meeting_att.meeting_id)
 
         # need to update current notification of this employee
         past_notification = Notification.getById(meeting_att.notification_id)
@@ -193,3 +200,36 @@ class MeetingController():
         past_notification.active = "N"
         past_notification.update()
         return EmployeeController().dashboard()
+
+    def timeslots(self, start, end, data_json):
+        length = (end - start).total_seconds() / 60.0
+        print (str(end)+" - "+str(start))
+        print(" length ="+str(length))
+        timeslots = list()
+        for em in data_json['selected']:
+           for attribute, value in em.iteritems():
+               slot = Timeslot.getAvailableTimeslots(length, value, data_json['date'])
+               timeslots.append(slot)
+        final_timeslots = self.concatenateTimeslots(timeslots, length, data_json['date'])
+        for slot in final_timeslots:
+            if slot.available == True:
+                print (str(slot.start)+" - "+str(slot.end))
+        return EmployeeView().render_schedule_calendar(final_timeslots, start, length)
+
+    def concatenateTimeslots(self, timeslots, length, date):
+        slots = Timeslot.generateTimeslots(length, date)
+        #look at each user timeslots
+        for user_timeslot in timeslots:
+            print("individual timeslot")
+            for s in user_timeslot:
+                if(s.available == True):
+                    print(str(s.start)+" :: "+str(s.end))
+            print("slot end")
+        i = 0
+        while (i < len(slots)):
+           for user_timeslot in timeslots:
+               if(user_timeslot[i].available== False):
+                   slots[i].available  = False
+                   break
+           i+=1
+        return slots
