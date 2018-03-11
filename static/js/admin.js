@@ -37,7 +37,7 @@ function hideAllLocation(){
 
 function acceptMeeting(meeting_attendee_id)
 {
-    alert("accepting");
+    //alert("accepting");
     var c = confirm("You are about to accept this Meeting. Are you sure?");
 
 		if(c==true){
@@ -65,7 +65,7 @@ function acceptMeeting(meeting_attendee_id)
 
 function declineMeeting(meeting_attendee_id)
 {
-    alert("decline");
+    //alert("decline");
 		var c = confirm("You are about to decline this meeting. Are you sure?");
 
 		if(c==true){

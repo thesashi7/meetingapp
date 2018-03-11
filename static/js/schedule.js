@@ -83,14 +83,14 @@ function step1(){
     };
 
     list.forEach(function(el) {
-      alert(el.children[0].innerHTML);
+      //alert(el.children[0].innerHTML);
       employees.selected.push({
           "employee_id" : el.children[0].innerHTML
       });
     })
 
   var data_emp = JSON.stringify(employees);
-  alert(data_emp);
+  //alert(data_emp);
   var request = $.ajax({
     method: "POST",
     type: "POST",
@@ -100,7 +100,7 @@ function step1(){
   });
 
   request.done(function(html) {
-       alert("Request success");
+       //alert("Request success");
 
    });
 
@@ -152,7 +152,7 @@ function getEndTime()
 
 function step2()
 {
-  alert("step2");
+  //alert("step2");
 
   year = document.getElementById("date").value;
   start_time = document.getElementById("starttime").value;
@@ -163,7 +163,7 @@ function step2()
   }
   end_time = getEndTime();
   var list = document.getElementById("listnames").querySelectorAll(".select");
-  alert(list.length);
+  //alert(list.length);
 
   var data_json = {
       selected: [],
@@ -173,7 +173,7 @@ function step2()
   };
 
   list.forEach(function(el) {
-    alert(el.children[0].innerHTML);
+    //alert(el.children[0].innerHTML);
     data_json.selected.push({
         "employee_id" : el.children[0].innerHTML
     });
@@ -204,11 +204,11 @@ function step2()
 
 function selectSlot(year,month, day, start, end)
 {
-  alert("hooo");
+  //alert("hooo");
   document.getElementById("date").value = day+"."+month+"."+year;
   document.getElementById("starttime").value = start;
-  alert(document.getElementById("date").value);
-  alert(document.getElementById("starttime").value);
+  //alert(document.getElementById("date").value);
+  //alert(document.getElementById("starttime").value);
 
 
   step2();
@@ -216,7 +216,7 @@ function selectSlot(year,month, day, start, end)
 
 function step3(room_id)
 {
-  alert("step3");
+  //alert("step3");
   year = document.getElementById("date").value;
   start_time = document.getElementById("starttime").value;
   if(year.length ==0 || start_time.length==0 )
@@ -225,9 +225,9 @@ function step3(room_id)
     return false;
   }
   end_time = getEndTime();
-  
+
   var list = document.getElementById("listnames").querySelectorAll(".select");
-  alert(list.length);
+  //alert(list.length);
 
   var data_json = {
       selected: [],
