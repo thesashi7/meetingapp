@@ -11,7 +11,7 @@ And the following dependencies:
 1) flask
 2) sqlalchemy
 3) flask-login
-
+4) Flask-session
 For Ubuntu:
 
 sudo pip install Flask
@@ -22,6 +22,5 @@ sudo pip install flask-login
 
 sudo apt install postgresql-9.5
 
-
-
+pip install Flask-Session
 
