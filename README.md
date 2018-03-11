@@ -12,6 +12,7 @@ And the following dependencies:
 2) sqlalchemy
 3) flask-login
 4) Flask-session
+
 For Ubuntu:
 
 sudo pip install Flask
