@@ -102,7 +102,7 @@ class MeetingController():
         print(data_json)
         start_date = Time.convertToDateTime(data_json['date'],data_json['start'])
         end_date = Time.convertToDateTime(data_json['date'], data_json['end'])
-        end_date = end_date - timedelta(minutes = 1)
+        end_date = end_date 
         avail = True
         for em in data_json['selected']:
             for attribute, value in em.iteritems():

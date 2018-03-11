@@ -137,6 +137,18 @@ function showStep3()
   document.getElementById("step3").style.display = 'block';
 
 }
+function getEndTime()
+{
+  var e = document.getElementById("meet_length");
+  var length = e.options[e.selectedIndex].value;
+  start_time = document.getElementById("starttime").value;
+  start_time = moment(start_time, 'hh:mm A');
+  end_time = start_time.clone();
+  added = end_time.add(length,'minutes').format('hh:mm A');
+  start_time = start_time.format('hh:mm A');
+  end_time = end_time.format('hh:mm A');
+  return end_time;
+}
 
 function step2()
 {
@@ -144,12 +156,12 @@ function step2()
 
   year = document.getElementById("date").value;
   start_time = document.getElementById("starttime").value;
-  end_time = document.getElementById("endtime").value;
-  if(date.length == 0 || start_time.length==0 || end_time.length==0)
+  if(year.length ==0 || start_time.length==0 )
   {
     alert("Please select date and time!");
     return false;
   }
+  end_time = getEndTime();
   var list = document.getElementById("listnames").querySelectorAll(".select");
   alert(list.length);
 
@@ -195,10 +207,9 @@ function selectSlot(year,month, day, start, end)
   alert("hooo");
   document.getElementById("date").value = day+"."+month+"."+year;
   document.getElementById("starttime").value = start;
-  document.getElementById("endtime").value = end;
   alert(document.getElementById("date").value);
   alert(document.getElementById("starttime").value);
-  alert(document.getElementById("endtime").value);
+
 
   step2();
 }
@@ -206,11 +217,15 @@ function selectSlot(year,month, day, start, end)
 function step3(room_id)
 {
   alert("step3");
-  alert(room_id);
   year = document.getElementById("date").value;
   start_time = document.getElementById("starttime").value;
-  end_time = document.getElementById("endtime").value;
-
+  if(year.length ==0 || start_time.length==0 )
+  {
+    alert("Please select date and time!");
+    return false;
+  }
+  end_time = getEndTime();
+  
   var list = document.getElementById("listnames").querySelectorAll(".select");
   alert(list.length);
 
@@ -310,4 +325,8 @@ function addEmp(){
 
   document.getElementById("listnames").appendChild(div);
   document.getElementById("addedname"+strname).appendChild(button);
+}
+
+function addMinutes(date, minutes) {
+    return new Date(date.getTime() + minutes*60000);
 }
