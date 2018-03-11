@@ -141,8 +141,11 @@ function getEndTime()
 {
   var e = document.getElementById("meet_length");
   var length = e.options[e.selectedIndex].value;
+
   start_time = document.getElementById("starttime").value;
   start_time = moment(start_time, 'hh:mm A');
+  alert(start_time);
+  alert(length);
   end_time = start_time.clone();
   added = end_time.add(length,'minutes').format('hh:mm A');
   start_time = start_time.format('hh:mm A');

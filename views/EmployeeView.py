@@ -29,8 +29,8 @@ class EmployeeView(BaseView):
     def render_meeting_confirm(self, result):
         return render_template('meetingconfirm.html', success=result)
 
-    def render_dashboard(self, owned_m, pending_m, accepted_m):
-        return render_template('dashboard.html', owned_m=owned_m, pending_m=pending_m, accepted_m=accepted_m)
+    def render_dashboard(self, owned_m, pending_m, accepted_m, meet_att_map):
+        return render_template('dashboard.html', owned_m=owned_m, pending_m=pending_m, accepted_m=accepted_m, meet_att_map=meet_att_map)
 
     def render_employee_setting(self, emp):
         return render_template('employee/setting.html', emp=emp, success=self.message['success'],

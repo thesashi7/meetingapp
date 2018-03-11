@@ -1,4 +1,5 @@
 from DatabaseService import DatabaseService
+from sqlalchemy import or_, and_
 
 class RoomService(DatabaseService):
 
@@ -12,6 +13,13 @@ class RoomService(DatabaseService):
      from models.Room import Room
      rooms = None
      rooms = self.session.query(Room).filter(~Room.room_id.in_(room_ids)).all()
+     return rooms
+
+   def getAllByFilterCapacity(self, room_ids, capacity):
+     from models.Room import Room
+     rooms = None
+     rooms = self.session.query(Room).filter(and_(~Room.room_id.in_(room_ids),
+        Room.capacity >= capacity)).all()
      return rooms
 
    def get(self, id, serialize = False):

@@ -13,11 +13,16 @@ class MeetingAttendee(Model):
        meeting = Meeting.getById(self.meeting_id)
        return meeting
 
+   def getEmployee(self):
+       from models.Employee import Employee
+       employee = Employee.getById(self.employee_id)
+       return employee
+
    @staticmethod
    def getById(id):
        meeting_attn = MeetingAttendee.service.get(id)
        return meeting_attn
-        
+
    @staticmethod
    def getByMeetingId(id):
        meeting_attn= MeetingAttendee.service.getByMeetingId(id)
@@ -26,6 +31,11 @@ class MeetingAttendee(Model):
    @staticmethod
    def getByEmployeeAndStatus(emp_id, ac_stat):
        meeting_attn = MeetingAttendee.service.getByEmployeeAndStatus(emp_id, ac_stat)
+       return meeting_attn
+
+   @staticmethod
+   def getByMeetingAndStatus(meeting_id, ac_stat):
+       meeting_attn = MeetingAttendee.service.getByMeetingAndStatus(meeting_id, ac_stat)
        return meeting_attn
 
    @staticmethod

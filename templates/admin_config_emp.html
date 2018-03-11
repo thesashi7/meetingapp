@@ -134,8 +134,8 @@
 
                                    <th >{{em.employee_id}}</th>
                                    <th >{{em.username}}</th>
-                                   <th><button class="btn btn-danger btn-xs" onclick="editEmployee('{{em.employee_id}}', '{{em.username}}');">Edit <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
-                                         <th><button class="btn btn-danger btn-xs" onclick="deleteEmployee('{{em.employee_id}}');">Delete <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+                                   <th><button class="btn btn-primary btn-xs" onclick="editEmployee('{{em.employee_id}}', '{{em.username}}');">Edit <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+                                         <button class="btn btn-danger btn-xs" onclick="deleteEmployee('{{em.employee_id}}');">Delete <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
                                      </th>
                                  </tr>
                                                 {% endfor %}

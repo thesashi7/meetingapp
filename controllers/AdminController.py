@@ -10,6 +10,8 @@ from models.Room import Room
 from BaseController import BaseController
 from security.Authenticable import Authenticable
 import sys
+from flask import Flask, session
+from flask.ext.session import Session
 
 class AdminController(BaseController):
     def adminaddroom(self):
@@ -104,6 +106,9 @@ class AdminController(BaseController):
                 print ('Fuck', file=sys.stdout)
                 return redirect('admin_login')
             print ('Got this shit', file=sys.stdout)
+            print ("fffuuuc")
+            session['user_type'] = "Admin"
+            print(registered_user)
             login_user(registered_user)
             #flash('Logged in successfully')
             return redirect('/admin_config_emp')

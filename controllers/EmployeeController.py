@@ -14,6 +14,8 @@ from views.EmployeeView import EmployeeView
 from models.Meeting import Meeting
 from models.MeetingAttendee import MeetingAttendee
 import sys
+from flask import Flask, session
+from flask.ext.session import Session
 
 """
 
@@ -42,6 +44,7 @@ class EmployeeController(AccountController):
              print ('Fuck', file=sys.stdout)
              return redirect('/')
           print ('Got this shit', file=sys.stdout)
+          session['user_type'] = "Employee"
           login_user(registered_user)
           print("logged IN")
           print(current_user)
@@ -91,11 +94,15 @@ class EmployeeController(AccountController):
        owned_m = Meeting.getByEmployeeId(current_user.employee_id)
        pending = MeetingAttendee.getByEmployeeAndStatus(current_user.employee_id, 'P')
        accepted = MeetingAttendee.getByEmployeeAndStatus(current_user.employee_id, 'Y')
+       meet_att_map = {}
        if owned_m is not None:
           for m in owned_m:
-              print(m.end_time.year)
+              attendees =  MeetingAttendee.getByMeetingAndStatus(m.meeting_id, "Y")
+              meet_att_map[m.meeting_id] = attendees
+
+              #print(m.end_time.year)
        if pending is not None:
           for m in pending:
               print(m)
               print(m.getMeeting().end_time)
-       return self.view.render_dashboard(owned_m, pending, accepted)
+       return self.view.render_dashboard(owned_m, pending, accepted, meet_att_map)

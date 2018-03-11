@@ -134,8 +134,8 @@
                              <th >{{rm.room_id}}</th>
                              <th >{{rm.name}}</th>
                              <th >{{rm.capacity}}</th>
-                             <th><button class="btn btn-danger btn-xs" onclick="editRoom('{{rm.room_id}}', '{{rm.name}}', '{{rm.capacity}}');">Edit <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
-                                   <th><button class="btn btn-danger btn-xs" onclick="deleteRoom({{rm.room_id}});">Delete <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+                             <th><button class="btn btn-primary btn-xs" onclick="editRoom('{{rm.room_id}}', '{{rm.name}}', '{{rm.capacity}}');">Edit <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+                                   <button class="btn btn-danger btn-xs" onclick="deleteRoom({{rm.room_id}});">Delete <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
                                </th>
                            </tr>
                                           {% endfor %}

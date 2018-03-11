@@ -181,7 +181,7 @@ def adminSetting():
     if(isAdmin()):
         return AdminController().setting()
     return AdminController().adminlogin()
-    
+
 def isAdmin():
     from models.Administrator import Administrator
     ad = Administrator()

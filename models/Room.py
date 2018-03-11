@@ -15,7 +15,7 @@ class Room(Model):
        return room
 
    @staticmethod
-   def getAvailableRooms(start, end):
+   def getAvailableRooms(start, end, capacity=0):
        meetings = Meeting.getByTime(str(start), str(end))
        room_ids = list()
        for meet in meetings:
@@ -23,7 +23,7 @@ class Room(Model):
            #print("r_id:"+meet.room_id)
        rooms = None
        if( len(room_ids) > 0):
-           rooms = Room.service.getAllByFilter(room_ids)
+           rooms = Room.service.getAllByFilterCapacity(room_ids, capacity)
        else:
            rooms = Room.service.getAll()
        return rooms

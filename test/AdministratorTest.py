@@ -4,7 +4,7 @@ class AdministratorTest:
 
     def addAdministrator(self):
        admin = Administrator()
-       admin.setCredentials("samy","hunt")
+       admin.setCredentials("admin","password")
        print Administrator.add(admin)
 
     def getAdminstrator(self):
@@ -28,7 +28,7 @@ class AdministratorTest:
        Administrator.update(admin)
 
     def run(self):
-       self.updateAdministrator()
-       #self.addAdministrator()
+       #self.updateAdministrator()
+       self.addAdministrator()
        #self.getAdminstrator()
        #self.deleteAdministrator()

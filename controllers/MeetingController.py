@@ -102,18 +102,23 @@ class MeetingController():
         print(data_json)
         start_date = Time.convertToDateTime(data_json['date'],data_json['start'])
         end_date = Time.convertToDateTime(data_json['date'], data_json['end'])
-        end_date = end_date 
+        end_date = end_date
         avail = True
-        for em in data_json['selected']:
-            for attribute, value in em.iteritems():
-                if (EmployeeSchedule.isAvailable(value, start_date, end_date) == False):
-                    avail = False
-                    break
-        if avail == False:
+        n = 0
+        avail = EmployeeSchedule.isAvailable(current_user.employee_id, start_date, end_date)
+        if avail is True:
+            for em in data_json['selected']:
+                for attribute, value in em.iteritems():
+                    if (EmployeeSchedule.isAvailable(value, start_date, end_date) == False):
+                        avail = False
+                        break
+                    n += 1
+        if avail is False:
             # need to render calendar with avail slots
             return self.timeslots(start_date, end_date, data_json)
         print("--------True --------------")
-        return self.scheduleRoom(data_json)
+        print (n)
+        return self.scheduleRoom(data_json, n)
 
     def scheduleTime(self, emp_json):
         #get emp overlapping avail times using emp_json
@@ -122,7 +127,7 @@ class MeetingController():
         emp_list = Employee.getAll()
         return view.render_schedule_add_emp(emp_list)
 
-    def scheduleRoom(self, time_json):
+    def scheduleRoom(self, time_json, capacity):
         view = EmployeeView()
         # get time within postgre format
         print(time_json)
@@ -138,7 +143,7 @@ class MeetingController():
         end_date = end_date - timedelta(minutes = 1)
         # get all meetings within than time range
         # filter all the rooms that are occupied
-        room_list = Room.getAvailableRooms(start_date, end_date)
+        room_list = Room.getAvailableRooms(start_date, end_date, capacity)
         print(room_list)
 
         return view.render_schedule_add_room(room_list)
@@ -212,11 +217,14 @@ class MeetingController():
            for attribute, value in em.iteritems():
                slot = Timeslot.getAvailableTimeslots(length, value, data_json['date'])
                timeslots.append(slot)
+        owner_slot = Timeslot.getAvailableTimeslots(length, current_user.employee_id, data_json['date'])
+        timeslots.append(owner_slot)
         final_timeslots = self.concatenateTimeslots(timeslots, length, data_json['date'])
         for slot in final_timeslots:
             if slot.available == True:
                 print (str(slot.start)+" - "+str(slot.end))
         return EmployeeView().render_schedule_calendar(final_timeslots, start, length)
+
 
     def concatenateTimeslots(self, timeslots, length, date):
         slots = Timeslot.generateTimeslots(length, date)

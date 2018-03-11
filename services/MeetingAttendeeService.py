@@ -17,6 +17,15 @@ class MeetingAttendeeService(DatabaseService):
         return meeting_att
      return None
 
+   def getByMeetingAndStatus(self, meeting_id, ac_stat):
+     from models.MeetingAttendee import MeetingAttendee
+     meeting_att = None
+     meeting_att= self.session.query(MeetingAttendee).filter(MeetingAttendee.meeting_id == str(meeting_id)).\
+      filter(MeetingAttendee.accepted == str(ac_stat)).all()
+     if(len(meeting_att)>0):
+        return meeting_att
+     return None
+
    def getByMeetingId(self, meeting_id):
      from models.MeetingAttendee import MeetingAttendee
      meeting_att= None

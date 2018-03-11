@@ -101,7 +101,7 @@ function confirmCancelMeeting(id)
       method: "POST",
       type: "POST",
       url: "cancelmeeting",
-      data:'&meeting_id='+id_num
+      data:'&meeting_id='+id
     });
 
    request.done(function(html) {
