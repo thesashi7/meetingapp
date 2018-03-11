@@ -48,10 +48,11 @@
    <a href="index.html"><h1>Meete</h1></a>
   </div>
   <div class="text-center col-sm-6">
-  <h1>Meeting Redefined</h1>
+  <h1>Meeting Redefined</h1> <br>
+      <h2>(Administrative Mode)</h2>
   </div>
 	<div id="polina" class="col-sm-6">
-	<h4 class="text-center">Employee Login</h4>
+	<h4 class="text-center">Admin Login</h4>
 	<div class="social text-center">
 	<div class="row">
 	<!--<div class="col-sm-6">
@@ -69,7 +70,7 @@
 	<!--<div class="text-center">
 		<h5>OR</h5>
 	</div>-->
-	<form class="form-horizontal" method="post" action="{{ url_for('login') }}">
+	<form class="form-horizontal" method="post" action="{{ url_for('adminlogin') }}">
     <div class="form-group has-success has-feedback">
      <div class="form-group has-success has-feedback">
       <div class="col-sm-12">
@@ -93,7 +94,8 @@
   </form>
   <br>
    <div class="text-right">
-   <p>Admin Login?<a href="admin_login"> Login Here </a></p>
+              <p><a href="login"> Switch to User Mode  </a></p>
+   <p>Not Registered?<a href="#"> Sign Up Here </a></p>
   </div>
 </div>
 </div>

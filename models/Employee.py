@@ -15,6 +15,7 @@ class Employee(Model, UserMixin):
 
    def __init__(self):
       self.is_authenticated = True
+      self.type = "Employee"
 
    def setCredentials(self, username, passw):
        self.username = username
@@ -47,6 +48,14 @@ class Employee(Model, UserMixin):
       return employee
 
    @staticmethod
+   def getByUsername(username):
+      employee = Employee.service.getByUsername(username)
+      print employee
+      if (employee != None):
+        employee.new = False
+      return employee
+
+   @staticmethod
    def getAllExcluding(ids, visible='Y'):
       employee = Employee.service.getAllByFilter(ids, visible)
       print employee
@@ -68,7 +77,6 @@ class Employee(Model, UserMixin):
 
    @staticmethod
    def add(employee):
-
        old_employee = Employee.service.getByUsername(employee.username)
        if (old_employee is not None):
           "throw exception user already exists"

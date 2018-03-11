@@ -35,6 +35,7 @@ class EmployeeController(AccountController):
           username = request.form['username']
           password = request.form['password']
           print('got data', file=sys.stdout)
+          print(username+" "+password)
           registered_user = Employee.getByCredential(username, password)
           if registered_user is None:
              flash('Username or Password is invalid' , 'error')
@@ -42,6 +43,8 @@ class EmployeeController(AccountController):
              return redirect('/')
           print ('Got this shit', file=sys.stdout)
           login_user(registered_user)
+          print("logged IN")
+          print(current_user)
           flash('Logged in successfully')
           return redirect('/calendar')
       return PageController().index()
@@ -66,15 +69,22 @@ class EmployeeController(AccountController):
               username = request.form['username']
               password = request.form['password']
               if len(username) >2 and len(password) > 2:
+                  if(username != current_user.username):
+                      exist = Employee.getByUsername(username)
+                      if isinstance(exist, Employee):
+                          self.view.setFlashMessage("fail","Username already exists!")
+                          return self.view.render_employee_setting(current_user)
+
                   current_user.username  = username
                   current_user.setPassword(password)
                   current_user.update()
                   self.view.setFlashMessage("success","Successfully updated")
               else:
-                  self.view.setFlashMessage("fail","Update Failed!")
+                  self.view.setFlashMessage("fail","Password must be greater than 2!")
           elif(request.form['type'] == 'visible'):
               current_user.visible = request.form['visible']
               current_user.update()
+              self.view.setFlashMessage("success","Successfully updated")
        return self.view.render_employee_setting(current_user)
 
    def dashboard(self):

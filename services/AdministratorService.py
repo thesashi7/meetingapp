@@ -24,7 +24,15 @@ class AdministratorService(DatabaseService):
      admin = self.session.query(Administrator).filter(Administrator.username == str(username)).all()
      if(len(admin) > 0 and check_password_hash(admin[0].password, passw) == True):
          return admin[0]
-     print admin[0]
+     #print admin[0]
+     return None
+
+   def getByUsername(self, username):
+     from models.Administrator import Administrator
+     admin = None
+     admin = self.session.query(Administrator).filter(Administrator.username == str(username)).all()
+     if (len(admin) > 0):
+         return admin[0]
      return None
 
    def add(self, administrator):

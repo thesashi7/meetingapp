@@ -90,39 +90,11 @@ function declineMeeting(meeting_attendee_id)
 		}
 }
 
-function confirmCompleteAppt(id)
-{
-   var c = confirm("You are about to complete this appointment. Are you sure?");
-
-   if(c==true){
-     var request = $.ajax({
-      method: "POST",
-      type: "POST",
-      url: "apptComplete",
-      data:'&appt_id='+id_num
-    });
-
-   request.done(function(html) {
-        alert("Request success");
-        window.location.reload();
-    });
-
-  request.fail(function(jqXHR, textStatus) {
-        alert( "Request failed: " + textStatus );
-    });
-   }
-   else{
-
-   }
-}
 
 function confirmCancelMeeting(id)
 {
    var c = confirm("You are about to cancel this meeting. Are you sure?");
 
-   id_num = id;
-   id_name = "delete_s";
-   id_name = id_name.concat(id_num.toString());
 
    if(c==true){
      var request = $.ajax({
