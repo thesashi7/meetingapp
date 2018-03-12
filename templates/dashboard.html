@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>My Meetings</title>
+  <!-- ... -->
+
+
+  <link rel="stylesheet" href="{{ url_for('static',
+  filename='bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}"/>
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/small-business.css') }}"/>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> <!-- load jquery via CDN -->
+
+</head>
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://cdn.bootcss.com/animate.css/3.5.1/animate.min.css">
+<body style="overflow-x: hidden; overflow-wrap: hidden; ">
+<!-- Navigation -->
+
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+{% include "emp_nav.html" %}
+<!-- /.navbar-collapse -->
+
+<!-- /.container -->
+
+<body>
+<div id="container" class="container" style="padding-top: 70px;">
+
+  <ul class="nav nav-tabs">
+    <li id="customers-tab" role="presentation" class="active"><a>Meetings</a></li>
+
+  </ul>
+
+  <div id="content">
+    <div id="customers-table" class="admin-dashboard-content">
+      <div class="table-responsive">
+        <ul class="nav nav-tabs">
+          <li id="own-tab" role="presentation" class="active"><a>Owned Meetings</a></li>
+          <li id="accepted-tab" role="presentation"><a>Accepted Meetings</a></li>
+          <li id="pending-tab" role="presentation"><a>Pending Requests</a></li>
+        </ul>
+        <table class="table table-striped table-hover">
+          <caption style="padding-top: 0px;">
+            <div id="alert-top" class="alert alert-success">
+
+              </strong></div>
+          </caption>
+
+          <thead>
+          <tr>
+
+            <th>ID</th>
+            <th>Date</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Room</th>
+          </tr>
+          </thead>
+
+          <tbody id="own-table">
+          {% if owned_m is not none %}
+          {% for om in owned_m %}
+
+          <tr>
+
+
+            <th>{{om.meeting_id}}</th>
+            <th>{{om.start_time.month}}-{{om.start_time.day}}-{{om.start_time.year}}</th>
+            <th>{{om.start_time.strftime("%I:%M %p")}}</th>
+
+            <th>{{om.end_time.strftime("%I:%M %p")}}</th>
+            <th>{{om.getRoom().name}}</th>
+            <th>
+              <button class="btn btn-primary btn-xs"
+                      onclick="alert('{% if meet_att_map[om.meeting_id] is not none %}{% for att in meet_att_map[om.meeting_id]%}{{att.getEmployee().username}}\n{% endfor %}{% endif %}');">
+                Show Attendees <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+
+              <button class="btn btn-danger btn-xs" onclick="confirmCancelMeeting({{om.meeting_id}});">Cancel <span
+                  class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+            </th>
+          </tr>
+
+          {% endfor %}
+          {% endif %}
+
+
+          </tbody>
+
+          <tbody id="accepted-table">
+          {% if accepted_m is not none %}
+          {% for ac in accepted_m %}
+          {% set om = ac.getMeeting() %}
+
+          <tr>
+
+
+            <th>{{om.meeting_id}}</th>
+            <th>{{om.start_time.month}}-{{om.start_time.day}}-{{om.start_time.year}}</th>
+            <th>{{om.start_time.strftime("%I:%M %p")}}</th>
+
+            <th>{{om.end_time.strftime("%I:%M %p")}}</th>
+            <th>{{om.getRoom().name}}</th>
+            <th>
+              <button class="btn btn-danger btn-xs" onclick="declineMeeting({{ac.meeting_attendee_id}});">Decline <span
+                  class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+            </th>
+          </tr>
+          {% endfor %}
+          {% endif %}
+          </tbody>
+          <tbody id="pending-table">
+
+          {% if pending_m is not none %}
+          {% for pn in pending_m %}
+          {% set om = pn.getMeeting() %}
+          <tr>
+
+
+            <th>{{om.meeting_id}}</th>
+            <th>{{om.start_time.month}}-{{om.start_time.day}}-{{om.start_time.year}}</th>
+            <th>{{om.start_time.strftime("%I:%M %p")}}</th>
+
+            <th>{{om.end_time.strftime("%I:%M %p")}}</th>
+            <th>{{om.getRoom().name}}</th>
+            <th>
+              <button class="btn btn-success btn-xs" onclick="acceptMeeting({{pn.meeting_attendee_id}});">Accept <span
+                  class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+              <button class="btn btn-danger btn-xs" onclick="declineMeeting({{pn.meeting_attendee_id}});">Decline <span
+                  class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+            </th>
+          </tr>
+          {% endfor %}
+          {% endif %}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</body>
+</html>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<!-- Footer -->
+<div id="footer">
+  <div class="row">
+    <div class="col-lg-10">
+      <p style="color:white;">Copyright &copy; Meeting 2018</p>
+    </div>
+  </div>
+</div>
+</body>
+
+<script type="text/javascript" src="{{ url_for('static' ,
+filename='bower_components/jquery/src/jquery.min.js')}}">
+</script>
+<script type="text/javascript" src="{{ url_for('static',
+filename='bower_components/moment/min/moment.min.js')}}">
+</script>
+<script type="text/javascript" src="{{ url_for('static',
+filename='bower_components/moment/min/moment.min.js')}}">
+</script>
+<script type="text/javascript" src="{{ url_for('static',
+filename='bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static',
+filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/admin.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}">
+</script>

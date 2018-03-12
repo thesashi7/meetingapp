@@ -1,0 +1,238 @@
+/*!
+ * Start Bootstrap - Small Business HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+@import url(https://fonts.googleapis.com/css?family=Quicksand:400,700);
+
+body {
+  padding-top: 70px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  /*font-family: cursive;*/
+  height: 100%;
+  padding: 0;
+  color: #00234b;
+  font-size: 16px;
+
+}
+
+.navbar-fixed-top {
+  height: 12%;
+}
+
+.navbar-fixed-top .nav {
+  padding: 15px 0;
+
+}
+
+.navbar-fixed-top .navbar-brand {
+  padding: 0 15px;
+  color: #fff;
+  margin-right: 300px;
+  margin-top: -15px;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 50px;
+  margin-left: 0px;
+  padding: 10px;
+}
+
+.navbar-brand img {
+  height: 500%;
+  width: 500%;
+}
+
+navbar-fixed-top .collapse .navbar-collapse {
+  color: chartreuse;
+}
+
+#location {
+  margin-left: 10%;
+}
+
+#footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  margin-top: -60px; /* negative value of footer height */
+  padding-top: 20px;
+  background-color: #356a98;
+
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-top: 100px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+
+  }
+
+  .navbar-fixed-top {
+    top: 0px; /* you'll have to figure out the exact number here */
+  }
+
+  .navbar-fixed-top .navbar-brand {
+    padding: 15px 0;
+    position: relative;
+  }
+
+}
+
+@media (min-width: 268px) {
+  body {
+    padding-top: 80px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+
+  }
+
+  .navbar-fixed-top .navbar-brand {
+    padding: 15px 0;
+
+  }
+}
+
+@media (max-width: 971px) {
+  .navbar-brand img {
+    height: 200%;
+    width: 200%;
+  }
+
+  html {
+    overflow-y: scroll;
+  }
+}
+
+@media (min-width: 970px) {
+// .navbar-header {
+/ / width: 200 px;
+/ /
+}
+
+  .navbar-brand img {
+    height: 400%;
+    width: 400%;
+  }
+
+}
+
+.nav-button {
+  background-color: #f7d146;
+  margin-left: 20px;
+
+}
+
+.nav-button:hover, .nav-button:focus, .open > .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #043a46;
+  border-color: #285e8e; /*set the color you want here*/
+}
+
+.nav-button > li > a:hover {
+  color: #fff;
+}
+
+.next {
+  float: right;
+  text-align: left;
+  margin-left: 5%;
+}
+
+.previous {
+  float: left;
+  text-align: left;
+  margin-right: 4%;
+
+}
+
+.calendar-top {
+  width: 72%;
+
+  margin-left: 15%;
+  margin-right: 12%;
+
+}
+
+.slots {
+  background-color: #fff;
+  color: #00234b;
+  font-family: sharp-sans-medium, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 24px;
+  margin: 0;
+  font-weight: 400;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding-top: 1px;
+  padding-bottom: 3px;
+  min-width: 20px;
+  text-align: center;
+  display: inline-block;
+  padding: 7px 0;
+  color: inherit;
+  text-decoration: inherit;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  border-color: #f5f5f5;
+  border-width: 1px;
+  border-style: solid;
+
+}
+
+.slots-inactive {
+  background-color: #f5f5f5;
+  color: #00234b;
+  border-width: 1px;
+
+}
+
+.intro {
+  max-width: 550px;
+  margin-left: 100px;
+  vertical-align: middle;
+}
+
+.btn-appointment {
+  /*background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);*/
+  background-color: #fff04b;
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+
+  font-size: 18px;
+  margin-left: 20px;
+}
+
+.btn-appointment:hover {
+  color: #fff;
+  background-color: #043a46;
+  border-color: #285e8e;
+  /*background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);*/
+  text-decoration: none;
+}
+
+.navbar-inverse {
+  border-color: transparent;
+}
+
+.content {
+  background-color: #00a8ac;
+}

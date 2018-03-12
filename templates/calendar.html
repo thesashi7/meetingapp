@@ -1,0 +1,228 @@
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Appointment</title>
+
+  <!-- Bootstrap Core CSS -->
+  <!--<link href="assets/css/bootstrap.min.css" rel="stylesheet">-->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/small-business.css') }}"/>
+
+  <!--<link href="assets/css/small-business.css" rel="stylesheet">-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> <!-- load jquery via CDN -->
+
+
+  <!--<script type="text/javascript" src="assets/js/custom.js"></script>-->
+
+
+</head>
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://cdn.bootcss.com/animate.css/3.5.1/animate.min.css">
+<body style="overflow-x: hidden; overflow-wrap: hidden; ">
+<!-- Navigation -->
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+{% include "emp_nav.html" %}
+<!-- /.navbar-collapse -->
+
+<!-- /.container -->
+<body>
+<div id="main-calendar">
+  <h2 align="center"><strong> Calendar</strong></h2>
+
+
+  <div class="well calendar-top" id="calendar">
+
+
+    <div class="row">
+      <div class="row">
+        <div class="previous">
+          <a><i style="font-size:24px" class="fa">&#xf053;</i></a>
+        </div>
+
+        <div class="next">
+          <button name="next" onclick="calendar(
+                        24,01,2018);">
+            <a><i style="font-size:24px" class="fa">&#xf054;</i>
+          </button>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+
+        <input hidden="true" name="first_day" type="text" value="23"/>
+        <input hidden="true" name="first_month" type="text" value="01"/>
+        <input hidden="true" name="first_year" type="text" value="2018"/>
+
+
+        <div class="col-sm-2" align="center" style="margin-left: 3%;">
+          <div class="day"><p><strong>Tuesday</strong></p>
+
+            <p><strong>Jan 23</strong></p>
+          </div>
+
+
+          <div class="slots" onclick="selectAppt( '2018-01-23','12:00:00',0);">
+            <a>
+              Meeting 12:00PM - 2:00PM </a>
+          </div>
+
+
+          <div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
+            <a>
+              Busy 2:00PM - 4:00PM </a>
+          </div>
+
+          <div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
+            <a>
+              Add + </a>
+          </div>
+
+
+          <div class="slots-inactive">
+            <i class="material-icons">&#xe15b;</i>
+          </div>
+
+        </div>
+        <div class="col-sm-2" align="center" style="margin-left: 3%;">
+          <div class="day"><p><strong>Wednesday</strong></p>
+
+            <p><strong>Jan 24</strong></p>
+          </div>
+
+
+          <div class="slots" onclick="selectAppt( '2018-01-23','11:45:00',0);">
+            <a>
+              Busy 11:45 AM - 4:00 PM </a>
+          </div>
+          <div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
+            <a>
+              Add + </a>
+          </div>
+
+          <div class="slots-inactive">
+            <i class="material-icons">&#xe15b;</i>
+          </div>
+
+        </div>
+
+        <div>
+          <div class="col-sm-2" align="center" style="margin-left: 3%;">
+            <div class="day"><p><strong>Thursday</strong></p>
+
+              <p><strong>Jan 25</strong></p>
+            </div>
+
+            <div class="slots" onclick="selectAppt( '2018-01-23','10:30:00',0);">
+              <a>
+                Meeting 10:30 AM - 11:30 AM </a>
+            </div>
+
+            <div class="slots" onclick="selectAppt( '2018-01-23','10:45:00',0);">
+              <a>
+                Meeting 12:00 PM - 1:00 PM </a>
+            </div>
+
+            <div class="slots" onclick="selectAppt( '2018-01-23','11:00:00',0);">
+              <a>
+                Meeting 2:00 PM - 3:00 PM </a>
+            </div>
+            <div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
+              <a>
+                Add + </a>
+            </div>
+
+            <div class="slots-inactive">
+              <i class="material-icons">&#xe15b;</i>
+            </div>
+
+          </div>
+
+          <div class="col-sm-2" align="center" style="margin-left: 3%;">
+            <div class="day"><p><strong>Friday</strong></p>
+
+              <p><strong>Jan 25</strong></p>
+            </div>
+
+            <div class="slots" onclick="selectAppt( '2018-01-23','10:30:00',0);">
+              <a>
+                Busy 1:00 PM - 3:00 PM </a>
+            </div>
+
+            <div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
+              <a>
+                Add + </a>
+            </div>
+            <div class="slots-inactive">
+              <i class="material-icons">&#xe15b;</i>
+            </div>
+
+          </div>
+
+          <div class="col-sm-2" align="center" style="margin-left: 3%;">
+            <div class="day"><p><strong>Saturday</strong></p>
+
+              <p><strong>Jan 26</strong></p>
+            </div>
+            <div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
+              <a>
+                Add + </a>
+            </div>
+            <div class="slots-inactive">
+              <i class="material-icons">&#xe15b;</i>
+            </div>
+
+          </div>
+
+          <input hidden="true" name="last_day" type="text" value="24"/>
+          <input hidden="true" name="last_month" type="text" value="01"/>
+          <input hidden="true" name="last_year" type="text" value="2018"/>
+
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</body>
+</html>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<!-- Footer -->
+<div id="footer">
+  <div class="row">
+    <div class="col-lg-10">
+      <p style="color:white;">Copyright &copy; Meeting 2018</p>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}">
+</script>
+
+
+<!--  <script src="assets/js/jquery.js"></script>
+   <!-- Bootstrap Core JavaScript -->
+<!--     <script src="assets/js/bootstrap.js"></script>-->
