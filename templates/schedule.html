@@ -76,7 +76,7 @@
                          <div id="prompt-service"></div>
                          <select multiple="" required class="" id="employee" name="service">
                            {% for em in emp_l %}
-                           <option value='{{em.employee_id}}'>{{em.username}}</option>
+                           <option value='{{em.employee_id}}'>{{em.getName()}}</option>
 
                             {% endfor %}
 

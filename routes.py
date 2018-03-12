@@ -5,6 +5,7 @@ from controllers.MeetingController import MeetingController
 from controllers.EmployeeController import EmployeeController
 from controllers.NotificationController import NotificationController
 from controllers.AdminController import AdminController
+from controllers.CalendarController import  CalendarController
 from index import app
 import sys
 from models.Employee import Employee
@@ -15,12 +16,12 @@ from flask import request
 def index():
     return PageController().index()
 
-@app.route('/calendar')
+@app.route('/calendar', methods=['POST', 'GET'])
 @login_required
 def calendar():
     if isAdmin() is False:
         print (" YYYYYYY")
-        return EmployeeController().get()
+        return CalendarController().get()
     return index()
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -126,6 +127,27 @@ def notificationUpdate():
         return NotificationController().update(request.form.get('notification_id'))
     return "Not allowed"
 
+@app.route('/addevent', methods=['POST'])
+@login_required
+def addEvent():
+    if(isAdmin() is False):
+        return EmployeeController().addEvent()
+    return "Not allowed"
+
+@app.route('/updateevent', methods=['POST'])
+@login_required
+def updateEvent():
+    if(isAdmin() is False):
+        return EmployeeController().updateEvent()
+    return "Not allowed"
+
+
+@app.route('/deleteevent', methods=['POST'])
+@login_required
+def deleteEvent():
+    if(isAdmin() is False):
+        return EmployeeController().deleteEvent()
+    return "Not allowed"
 
 #admin stuff
 

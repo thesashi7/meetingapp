@@ -1,6 +1,8 @@
 from Model import Model
 from services.MeetingService import MeetingService
 from services.DatabaseService import DatabaseService
+from datetime import datetime
+from datetime import timedelta
 
 class Meeting(Model):
 
@@ -15,6 +17,12 @@ class Meeting(Model):
 
    def update(self):
        Meeting.service.update(self)
+
+   @staticmethod
+   def upifyTime(meeting):
+       if meeting is not None:
+           meeting.end_time = meeting.end_time + timedelta(minutes=1)
+       return meeting
 
    @staticmethod
    def getById(meet_id):
@@ -34,6 +42,16 @@ class Meeting(Model):
    @staticmethod
    def getByEmployeeId(emp_id):
        meeting= Meeting.service.getByEmployeeId(emp_id)
+       return meeting
+
+   @staticmethod
+   def getByRoomId(room_id):
+       meeting= Meeting.service.getByRoomId(room_id)
+       return meeting
+
+   @staticmethod
+   def getByRoomTime(room_id, time):
+       meeting = Meeting.service.getByRoomTime(room_id, time)
        return meeting
 
    @staticmethod

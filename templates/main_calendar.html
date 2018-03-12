@@ -1,0 +1,205 @@
+       <div class="contact-main" id="contact-main" style="display:none;">
+
+         <form  name="contact" id="contact" action="email" method="post">
+          <div style="float:right; cursor: pointer;" onclick="hideEventForm();">
+       &#10006;
+       </div>
+         <h3>Create Event</h3>
+           <fieldset>
+             <input name="date" value="" type="text" tabindex="1" required readonly autofocus>
+               <input hidden name="std_date" value="" type="text" tabindex="1">
+           </fieldset>
+                        <fieldset>
+                            Event Info
+             <input name="info" placeholder="Party" type="text" tabindex="1" required  autofocus>
+           </fieldset>
+           <fieldset>
+             Start
+               <div class="form-group" style="padding-left: 50px;">
+          <select required class="" id="start" name="start">
+
+            <option value='09:00 AM'>09:00 AM</option>
+            <option value='09:30 AM'>09:30 AM </option>
+            <option value='10:00 AM'>10:00 AM </option>
+            <option value='10:30 AM'>10:30 AM</option>
+            <option value='11:00 AM'>11:00 AM</option>
+            <option value='11:30 AM'>11:30 AM</option>
+            <option value='12:00 PM'>12:00 PM</option>
+             <option value='12:30 PM'>12:30 PM </option>
+            <option value='01:00 PM'>01:00 PM</option>
+            <option value='01:30 PM'>01:30 PM</option>
+            <option value='02:00 PM'>02:00 PM</option>
+            <option value='02:30 PM'>02:30 PM</option>
+            <option value='03:00 PM'>03:00 PM</option>
+            <option value='03:30 PM'>03:30 PM</option>
+            <option value='04:00 PM'>04:00 PM</option>
+            <option value='04:30 PM'>04:30 PM</option>
+</select>
+
+        </div>
+           </fieldset>
+                     <fieldset>
+                         End
+                     <div class="form-group" style="padding-left: 50px;">
+          <select required class="" id="length" name="length">
+
+            <option value='30'>30 Minutes</option>
+            <option value='60'>1 Hour</option>
+            <option value='90'>1.5 Hours</option>
+            <option value='120'>2 Hours</option>
+            <option value='150'>2.5 Hours</option>
+            <option value='180'>3 Hours</option>
+</select>
+
+        </div>
+           </fieldset>
+           <input hidden name="emp_id" value="" required>
+
+             <button name="submit" type="button" id="contact-submit" onclick="submitEvent();">Save</button>
+           </fieldset>
+
+         </form>
+       </div>
+
+
+              <div class="contact-main" id="edit-event" style="display:none;">
+
+         <form  name="contact" id="contact" action="email" method="post">
+          <div style="float:right; cursor: pointer;" onclick="hideEventEdit();">
+       &#10006;
+       </div>
+         <h3>Modify Event</h3>
+           <fieldset>
+             <input name="date_2" value="" type="text" tabindex="1" required readonly autofocus>
+               <input hidden name="std_date_2" value="" type="text" tabindex="1">
+           </fieldset>
+                        <fieldset>
+                            Event Info
+             <input name="info_2" placeholder="Party" type="text" tabindex="1" required  autofocus>
+           </fieldset>
+           <fieldset>
+             Start
+               <div class="form-group" style="padding-left: 50px;">
+          <select required class="" id="start_2" name="start_2">
+
+            <option value='09:00 AM'>09:00 AM</option>
+            <option value='09:30 AM'>09:30 AM </option>
+            <option value='10:00 AM'>10:00 AM </option>
+            <option value='10:30 AM'>10:30 AM</option>
+            <option value='11:00 AM'>11:00 AM</option>
+            <option value='11:30 AM'>11:30 AM</option>
+            <option value='12:00 PM'>12:00 PM</option>
+             <option value='12:30 PM'>12:30 PM </option>
+            <option value='01:00 PM'>01:00 PM</option>
+            <option value='01:30 PM'>01:30 PM</option>
+            <option value='02:00 PM'>02:00 PM</option>
+            <option value='02:30 PM'>02:30 PM</option>
+            <option value='03:00 PM'>03:00 PM</option>
+            <option value='03:30 PM'>03:30 PM</option>
+            <option value='04:00 PM'>04:00 PM</option>
+            <option value='04:30 PM'>04:30 PM</option>
+</select>
+
+        </div>
+           </fieldset>
+                     <fieldset>
+                         End
+                     <div class="form-group" style="padding-left: 50px;">
+          <select required class="" id="length_2" name="length_2">
+
+            <option value='30'>30 Minutes</option>
+            <option value='60'>1 Hour</option>
+            <option value='90'>1.5 Hours</option>
+            <option value='120'>2 Hours</option>
+            <option value='150'>2.5 Hours</option>
+            <option value='180'>3 Hours</option>
+</select>
+
+        </div>
+           </fieldset>
+           <input hidden name="emp_id" value="" required>
+           <input hidden name="id2" value="" required>
+
+             <button name="submit" type="button" id="contact-submit" onclick="submitEditEvent();">Save</button>
+           </fieldset>
+
+         </form>
+       </div>
+<div id="main-calendar">
+       <h2 align="center"><strong> Calendar</strong></h2>
+<div class="well calendar-top" id="calendar">
+
+
+
+
+          <div class="row"  >
+         <div class="row"  >
+        <div class="previous">
+          <button type="button" name="next" onclick="calendar('{{prev.year}}','{{prev.month}}','{{prev.day}}');">
+     <a><i style="font-size:24px" class="fa">&#xf053;</i></a>
+          </button>
+                        </div>
+
+               <div class="next" >
+                <button type="button" name="next" onclick="calendar('{{next.year}}','{{next.month}}','{{next.day}}');">
+<a><i style="font-size:24px" class="fa">&#xf054;</i></a>
+                </button>
+
+        </div>
+             </div>
+        <div class="row">
+
+                            <input hidden="true" name="first_day" type="text" value="23" />
+            <input hidden="true" name="first_month" type="text" value="01" />
+            <input hidden="true" name="first_year" type="text" value="2018" />
+
+<div class="col-sm-12" align="center" style="">
+<div class="day"><p><strong>{{calendar.day_name[date.weekday()]}}</strong></p>
+
+<p><strong>{{calendar.month_name[date.month]}} {{date.day}} {{date.year}}</strong></p>
+</div>
+
+{% for ev in events %}
+
+
+<div class="slots" >
+
+   <a>
+{{ev.start_time.strftime("%I:%M %p")}} - {{ev.end_time.strftime("%I:%M %p")}}        </a>
+            <a>
+{{ev.info}}</a>
+
+{% set start = ev.start_time.strftime("%I:%M %p") %}
+    {% set end = ev.end_time.strftime("%I:%M %p") %}
+    <button onclick="editEvent('{{ ev.employee_schedule_id }}','{{ev.info}}','{{ev.meeting_id}}','{{ start }}','{{end}}', {{ev.start_time.month}},{{ev.start_time.day}},{{ev.start_time.year}});">
+        Edit
+    </button>
+        <button onclick="deleteEvent('{{ ev.employee_schedule_id }}','{{ev.info}}','{{ev.meeting_id}}','{{ev.start_time}}','{{ev.end_time}}');">
+        Delete
+    </button>
+
+
+</div>
+{% endfor %}
+<div class="slots" onclick="addEvent('{{date.year}}','{{date.month}}','{{date.day}}');">
+<a>
+Add Event      </a>
+</div>
+
+            <div class="slots-inactive">
+<i class="material-icons">&#xe15b;</i>
+</div>
+
+</div>
+
+
+                           <input hidden="true" name="last_day" type="text" value="24" />
+            <input hidden="true" name="last_month" type="text" value="01" />
+            <input hidden="true" name="last_year" type="text" value="2018" />
+
+        </div>
+     </div>
+
+
+
+</div>

@@ -71,7 +71,7 @@ function step1(){
     var strname = e.options[e.selectedIndex].text;
     var values = $('#employee').val();
     var list = document.getElementById("listnames").querySelectorAll(".select");
-    alert(list.length);
+    //alert(list.length);
     if(list.length == 0)
     {
         alert("Please Select at least one Employee!");
@@ -144,8 +144,8 @@ function getEndTime()
 
   start_time = document.getElementById("starttime").value;
   start_time = moment(start_time, 'hh:mm A');
-  alert(start_time);
-  alert(length);
+  //alert(start_time);
+  //alert(length);
   end_time = start_time.clone();
   added = end_time.add(length,'minutes').format('hh:mm A');
   start_time = start_time.format('hh:mm A');
@@ -183,7 +183,7 @@ function step2()
   })
 
   var data = JSON.stringify(data_json);
-  alert(data);
+  //alert(data);
 
   var request = $.ajax({
     method: "POST",
@@ -194,7 +194,7 @@ function step2()
   });
 
   request.done(function(html) {
-       alert("Request success");
+      // alert("Request success");
        document.getElementById('step3a').innerHTML = html;
    });
 
@@ -241,14 +241,14 @@ function step3(room_id)
   };
 
   list.forEach(function(el) {
-    alert(el.children[0].innerHTML);
+   // alert(el.children[0].innerHTML);
     data_json.selected.push({
         "employee_id" : el.children[0].innerHTML
     });
   })
 
   var data = JSON.stringify(data_json);
-  alert(data);
+  //alert(data);
   // construct an HTTP request
   var request = $.ajax({
     method: "POST",
@@ -259,7 +259,7 @@ function step3(room_id)
   });
 
   request.done(function(html) {
-       alert("Request success");
+       //alert("Request success");
        document.getElementById("main-calendar").innerHTML = html;
    });
 

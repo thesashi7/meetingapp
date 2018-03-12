@@ -7,11 +7,17 @@ from flask import Response, request
 from models.Administrator import Administrator
 from models.Employee import Employee
 from models.Room import Room
+from models.Meeting import Meeting
+from models.MeetingAttendee import  MeetingAttendee
+from models.EmployeeSchedule import EmployeeSchedule
+from models.Notification import Notification
 from BaseController import BaseController
+from MeetingController import MeetingController
 from security.Authenticable import Authenticable
 import sys
 from flask import Flask, session
 from flask.ext.session import Session
+from datetime import datetime
 
 class AdminController(BaseController):
     def adminaddroom(self):
@@ -77,7 +83,15 @@ class AdminController(BaseController):
             employees = Employee.getAll()
             return view.render_admin_config_emp(employees)
 
+    def deleteAllMeetings(self, meetings):
+        if meetings is not None:
+            meet_c = MeetingController()
+            for meet in meetings:
+                meet_c.deleteMeeting(meet.meeting_id)
+
     def deleteRoom(self):
+        meetings = Meeting.getByRoomId(request.form['room_id'])
+        self.deleteAllMeetings(meetings)
         room = Room.getById(request.form['room_id'])
         if isinstance(room, Room):
             Room.delete(room)
@@ -87,6 +101,21 @@ class AdminController(BaseController):
     def deleteEmployee(self):
         employee = Employee.getById(request.form['employee_id'])
         if isinstance(employee, Employee):
+            meetings = Meeting.getByEmployeeId(request.form['employee_id'])
+            invites = MeetingAttendee.getByEmployeeId(request.form['employee_id'])
+            schs = EmployeeSchedule.getByEmployeeId(request.form['employee_id'])
+            notfs = Notification.getByEmployeeId(request.form['employee_id'])
+            self.deleteAllMeetings(meetings)
+            if invites is not None:
+                for inv in invites:
+                    MeetingAttendee.delete(inv)
+            if schs is not None:
+                for sc in schs:
+                    EmployeeSchedule.delete(sc)
+            if notfs is not None:
+                for notf in notfs:
+                    Notification.delete(notf)
+
             Employee.delete(employee)
             return "Deleted"
         return "Employee does not exist"

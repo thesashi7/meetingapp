@@ -130,6 +130,42 @@
 
 </form>
 </div>
+           <div class="well">
+<form class="form-horizontal" action="emp-setting" method="post" >
+
+             <div class = "row">
+               <div class = "col-sm-2">
+                 First Name
+               </div>
+               <div class = "col-sm-3">
+                 <input name="first_name"
+     type="text" class="form-control" required=True
+
+     value= {{emp.first_name}}>
+               </div>
+             </div>
+             <div class = "row">
+               <div class = "col-sm-2">
+                 Last Name
+               </div>
+               <div class = "col-sm-3">
+                 <input name="last_name"
+     type="text" class="form-control" required=True
+
+     value= {{emp.last_name}}>
+               </div>
+             </div>
+   <input name="type" value="profile" hidden />
+  <div class = "row">
+    <div class = "col-sm-4">
+  <button type="submit"
+        name="submit"
+        class="btn btn-success btn-sm">
+       Save</button></div>
+</div>
+
+</form>
+</div>
 </div>
 
 </div>

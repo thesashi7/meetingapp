@@ -34,6 +34,13 @@ class NotificationService(DatabaseService):
         and_(Notification.active == "Y", Notification.employee_id == str(emp_id))).all()
      return notification
 
+   def getByEmployeeId(self, emp_id):
+     from models.Notification import Notification
+     notification= self.session.query(Notification).filter(Notification.employee_id == str(emp_id)).all()
+     if(len(notification)>0):
+        return notification
+     return None
+
    def add(self, notification):
      from models.Notification import Notification
      if isinstance(notification, Notification):

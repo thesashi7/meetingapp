@@ -84,14 +84,13 @@
 
                                               <tr>
 
-
                                                 <th >{{om.meeting_id}}</th>
                                                 <th >{{om.start_time.month}}-{{om.start_time.day}}-{{om.start_time.year}}</th>
                                                 <th >{{om.start_time.strftime("%I:%M %p")}}</th>
 
                                                 <th >{{om.end_time.strftime("%I:%M %p")}}</th>
                                                   <th >{{om.getRoom().name}}</th>
-                                                  <th><button class="btn btn-primary btn-xs" onclick="alert('{% if meet_att_map[om.meeting_id] is not none %}{% for att in meet_att_map[om.meeting_id]%}{{att.getEmployee().username}}\n{% endfor %}{% endif %}');">
+                                                  <th><button class="btn btn-primary btn-xs" onclick="alert('{% if meet_att_map[om.meeting_id] is not none %}{% for att in meet_att_map[om.meeting_id]%}{{att.getEmployee().getName()}} status = {{att.accepted}} \n{% endfor %}{% endif %}');">
                                                     Show Attendees <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
 
                                                       <button class="btn btn-danger btn-xs" onclick="confirmCancelMeeting({{om.meeting_id}});">Cancel <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
@@ -131,7 +130,6 @@
                                            {% for pn in pending_m %}
                                            {% set om = pn.getMeeting() %}
                                             <tr>
-
 
                                               <th >{{om.meeting_id}}</th>
                                               <th >{{om.start_time.month}}-{{om.start_time.day}}-{{om.start_time.year}}</th>

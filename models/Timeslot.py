@@ -15,6 +15,14 @@ class Timeslot:
         self.end = end
         self.available = avail
 
+    @staticmethod
+    def getStartTime():
+        return start_time
+
+    @staticmethod
+    def getEndTime():
+        return end_time
+
     """
     length in minutes
     """

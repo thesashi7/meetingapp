@@ -1,6 +1,7 @@
 from __future__ import print_function
 from DatabaseService import DatabaseService
 from sqlalchemy import or_, and_
+from datetime import timedelta
 
 class EmployeeScheduleService(DatabaseService):
 
@@ -20,6 +21,9 @@ class EmployeeScheduleService(DatabaseService):
         return employee_schedule
      return None
 
+   def getByEmployeeScheduleId(self, emp_sc_id):
+       return self.get(emp_sc_id)
+
    def getByMeetingId(self, meeting_id):
      from models.EmployeeSchedule import EmployeeSchedule
      employee_schedules = self.session.query(EmployeeSchedule).filter(EmployeeSchedule.meeting_id == str(meeting_id)).all()
@@ -28,6 +32,8 @@ class EmployeeScheduleService(DatabaseService):
    def getByTime(self, emp_id, start, end):
        from models.EmployeeSchedule import EmployeeSchedule
        print ("====>"+str(emp_id))
+       start = start + timedelta(minutes = 1)
+       end = end - timedelta(minutes = 1)
        print (str(start)+" "+str(end))
        employee_schedules = None
        employee_schedules = self.session.query(EmployeeSchedule).filter(

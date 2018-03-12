@@ -40,6 +40,11 @@ class Notification(Model):
        return notifications
 
    @staticmethod
+   def getByEmployeeId(id):
+       notifications = Notification.service.getByEmployeeId(id)
+       return notifications
+
+   @staticmethod
    def getActiveByEmployeeId(emp_id):
        notification = Notification.service.getActiveByEmployeeId(emp_id)
        return notification

@@ -3,6 +3,7 @@ from flask_login import current_user
 from views.PageView import PageView
 from flask import Response, redirect
 from BaseController import BaseController
+from CalendarController import  CalendarController
 from models.Meeting import Meeting
 from models.Employee import Employee
 from models.MeetingAttendee import MeetingAttendee
@@ -20,7 +21,7 @@ class PageController(BaseController):
        from controllers.EmployeeController import EmployeeController
        if (current_user.is_authenticated == True):
           if(isinstance(current_user._get_current_object(), Employee)):
-              return EmployeeController().calendar()
+              return CalendarController().get()
           return self.view.render_admin_add_emp()
        return self.view.render_landing()
 

@@ -1,7 +1,7 @@
 from __future__ import print_function
 from flask.ext.login import LoginManager, UserMixin, \
                                 login_required, login_user, logout_user, current_user
-from flask import Flask,session, request, flash, url_for, redirect, render_template, abort ,g
+from flask import Flask,session, request, flash, url_for, redirect
 from flask import render_template
 from flask import Response, request
 from BaseController import BaseController
@@ -9,6 +9,7 @@ from security.Authenticable import Authenticable
 from AccountController import AccountController
 from PageController import PageController
 from models.Employee import Employee
+from models.EmployeeSchedule import EmployeeSchedule
 from views.PageView import PageView
 from views.EmployeeView import EmployeeView
 from models.Meeting import Meeting
@@ -16,6 +17,7 @@ from models.MeetingAttendee import MeetingAttendee
 import sys
 from flask import Flask, session
 from flask.ext.session import Session
+from utils.Time import Time
 
 """
 
@@ -60,9 +62,51 @@ class EmployeeController(AccountController):
    def register(self):
        pass
 
-   def calendar(self):
-       view = EmployeeView()
-       return view.render_calendar()
+   def addEvent(self):
+       info = request.form['info']
+       date = request.form['date']
+       start_time = Time.convertToDateTime(date,request.form['start'])
+       end_time =  Time.convertToDateTime(date,request.form['end'])
+       if(EmployeeSchedule.isAvailable(current_user.employee_id, start_time,end_time)):
+           emp_s = EmployeeSchedule()
+           emp_s.employee_id = current_user.employee_id
+           emp_s.start_time = start_time
+           emp_s.end_time = end_time
+           emp_s.available = "N"
+           emp_s.info = info
+           EmployeeSchedule.add(emp_s)
+           return "Saved"
+       return "You already have other events planned for this time"
+
+   def updateEvent(self):
+       info = request.form['info']
+       date = request.form['date']
+       start_time = Time.convertToDateTime(date,request.form['start'])
+       end_time =  Time.convertToDateTime(date,request.form['end'])
+       schedules = EmployeeSchedule.getByTime(current_user.employee_id, start_time,end_time)
+       conflict = False
+       for sch in schedules:
+           print (str(sch.employee_schedule_id )+" ? "+request.form['id'])
+           if str(sch.employee_schedule_id) != str(request.form['id']):
+               conflict = True
+               break
+       if(conflict is False):
+           emp_s = EmployeeSchedule.getByEmployeeScheduleId(request.form['id'])
+           emp_s.start_time = start_time
+           emp_s.end_time = end_time
+           emp_s.available = "N"
+           emp_s.info = info
+           emp_s.update()
+           return "Saved"
+       return "You already have other events planned for this time"
+
+   def deleteEvent(self):
+       emp_s = EmployeeSchedule.getByEmployeeScheduleId(request.form['id'])
+       if isinstance(emp_s, EmployeeSchedule) and emp_s.info != "Meeting":
+           EmployeeSchedule.delete(emp_s)
+           return "Deleted"
+       return "Unable to delete!"
+
 
    def setting(self):
        #check for request
@@ -88,6 +132,12 @@ class EmployeeController(AccountController):
               current_user.visible = request.form['visible']
               current_user.update()
               self.view.setFlashMessage("success","Successfully updated")
+          elif(request.form['type'] == 'profile'):
+              current_user.first_name = request.form['first_name']
+              current_user.last_name = request.form['last_name']
+              current_user.update()
+              self.view.setFlashMessage("success","Successfully updated")
+
        return self.view.render_employee_setting(current_user)
 
    def dashboard(self):
@@ -97,7 +147,7 @@ class EmployeeController(AccountController):
        meet_att_map = {}
        if owned_m is not None:
           for m in owned_m:
-              attendees =  MeetingAttendee.getByMeetingAndStatus(m.meeting_id, "Y")
+              attendees = MeetingAttendee.getByMeetingId(m.meeting_id)
               meet_att_map[m.meeting_id] = attendees
 
               #print(m.end_time.year)

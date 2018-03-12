@@ -8,13 +8,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Appointment</title>
+    <title>Calendar</title>
 
     <!-- Bootstrap Core CSS -->
     <!--<link href="assets/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
 
     <!-- Custom CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/pop_form.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/small-business.css') }}" />
 
     <!--<link href="assets/css/small-business.css" rel="stylesheet">-->
@@ -46,172 +47,13 @@
         <!-- /.container -->
         <body>
        <div id="main-calendar">
-       <h2 align="center"><strong> Calendar</strong></h2>
-
-
-
-
-       	<div class="well calendar-top" id="calendar">
-
-
-
-
-                  <div class="row"  >
-                 <div class="row"  >
-                <div class="previous">
-                                     <a><i style="font-size:24px" class="fa">&#xf053;</i></a>
-                                </div>
-
-                       <div class="next" >
-                        <button  name="next" onclick="calendar(
-                        24,01,2018);">
-                        <a><i style="font-size:24px" class="fa">&#xf054;</i>
-                        </button>
-</a>
-                </div>
-                     </div>
-                <div class="row">
-
-                                    <input hidden="true" name="first_day" type="text" value="23" />
-                    <input hidden="true" name="first_month" type="text" value="01" />
-                    <input hidden="true" name="first_year" type="text" value="2018" />
-
-
-                                    <div class="col-sm-2" align="center" style="margin-left: 3%;">
-                    <div class="day"><p><strong>Tuesday</strong></p>
-
-                        <p><strong>Jan 23</strong></p>
-                    </div>
-
-
-
-                    <div class="slots" onclick="selectAppt( '2018-01-23','12:00:00',0);">
-                        <a>
-                        Meeting 12:00PM - 2:00PM                        </a>
-                    </div>
-
-
-
-                    <div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
-                        <a>
-                        Busy 2:00PM - 4:00PM                        </a>
-                    </div>
-
-                    <div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
-                        <a>
-                        Add +      </a>
-                    </div>
-
-
-
-                      <div class="slots-inactive">
-                       <i class="material-icons">&#xe15b;</i>
-                    </div>
-
-                </div>
-                <div class="col-sm-2" align="center" style="margin-left: 3%;">
-<div class="day"><p><strong>Wednesday</strong></p>
-
-    <p><strong>Jan 24</strong></p>
-</div>
-
-
-
-<div class="slots" onclick="selectAppt( '2018-01-23','11:45:00',0);">
-    <a>
-    Busy 11:45 AM - 4:00 PM                        </a>
-</div>
-<div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
-    <a>
-    Add +      </a>
-</div>
-
-                    <div class="slots-inactive">
-   <i class="material-icons">&#xe15b;</i>
-</div>
+{% include "main_calendar.html" %}
 
 </div>
 
-<div>
-    <div class="col-sm-2" align="center" style="margin-left: 3%;">
-<div class="day"><p><strong>Thursday</strong></p>
-
-    <p><strong>Jan 25</strong></p>
-</div>
-
-<div class="slots" onclick="selectAppt( '2018-01-23','10:30:00',0);">
-    <a>
-    Meeting 10:30 AM - 11:30 AM                        </a>
-</div>
-
-<div class="slots" onclick="selectAppt( '2018-01-23','10:45:00',0);">
-    <a>
-    Meeting 12:00 PM - 1:00 PM                        </a>
-</div>
-
-<div class="slots" onclick="selectAppt( '2018-01-23','11:00:00',0);">
-    <a>
-    Meeting 2:00 PM - 3:00 PM                       </a>
-</div>
-<div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
-    <a>
-    Add +      </a>
-</div>
-
-                    <div class="slots-inactive">
-   <i class="material-icons">&#xe15b;</i>
-</div>
-
-</div>
-
-<div class="col-sm-2" align="center" style="margin-left: 3%;">
-<div class="day"><p><strong>Friday</strong></p>
-
-<p><strong>Jan 25</strong></p>
-</div>
-
-<div class="slots" onclick="selectAppt( '2018-01-23','10:30:00',0);">
-<a>
-Busy 1:00 PM - 3:00 PM                        </a>
-</div>
-
-<div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
-    <a>
-    Add +      </a>
-</div>
-                <div class="slots-inactive">
-<i class="material-icons">&#xe15b;</i>
-</div>
-
-</div>
-
-<div class="col-sm-2" align="center" style="margin-left: 3%;">
-<div class="day"><p><strong>Saturday</strong></p>
-
-<p><strong>Jan 26</strong></p>
-</div>
-<div class="slots" onclick="selectAppt( '2018-01-23','16:00:00',0);">
-    <a>
-    Add +      </a>
-</div>
-                <div class="slots-inactive">
-<i class="material-icons">&#xe15b;</i>
-</div>
-
-</div>
-
-                                   <input hidden="true" name="last_day" type="text" value="24" />
-                    <input hidden="true" name="last_month" type="text" value="01" />
-                    <input hidden="true" name="last_year" type="text" value="2018" />
-
-                </div>
-             </div>
 
 
-
-	</div>
-
-</div>
+      </div>
    </body>
 </html>
            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -224,6 +66,11 @@ Busy 1:00 PM - 3:00 PM                        </a>
             </div>
         </div>
       </body>
+      <script type="text/javascript" src="{{ url_for('static',
+      filename='bower_components/moment/moment.js')}}">
+      </script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/calendar.js') }}">
+      </script>
       <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}">
       </script>
       <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}">

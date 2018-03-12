@@ -39,6 +39,14 @@ class Employee(Model, UserMixin):
    def get_id(self):
       return str(self.employee_id)
 
+   def getName(self):
+      name = ""
+      if (self.first_name is not None):
+         name = self.first_name
+      if (self.last_name is not None):
+         name = name+" "+self.last_name
+      return name
+
    @staticmethod
    def getById(id):
       employee = Employee.service.get(id)

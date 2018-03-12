@@ -46,7 +46,7 @@ class MeetingController():
                 meeting_attn.accepted = "P"
 
                 #create notification
-                message = "Meeting Request from "+current_user.username
+                message = "Meeting Request from "+current_user.getName()
                 notification = self.createNotification(value, message, "Y", new_meeting.meeting_id,
                 "N")
 
@@ -65,29 +65,31 @@ class MeetingController():
     def update(self):
         pass
 
+    def deleteMeeting(self, meeting_id):
+        meeting = Meeting.getById(meeting_id)
+        # need to delete previous meeting associated with this meeting
+        past_notifications = Notification.getByMeetingId(meeting_id)
+        print(past_notifications)
+        for past_notification in past_notifications:
+            Notification.delete(past_notification)
+
+        # get all the meeting attendees
+        #  and send them all notification of cancelation
+        attendees = MeetingAttendee.getByMeetingId(meeting_id)
+        print(attendees)
+        for att in attendees:
+            print(att)
+            if att.accepted == "Y":
+                message = "Meeting from " + str(meeting.start_time) + " to " + str(meeting.end_time) + " is cancelled"
+                notification = self.createNotification(att.employee_id, message, "Y", meeting_id, "Y")
+
+            MeetingAttendee.delete(att)
+
+        self.deleteEmployeeSchedule(meeting.meeting_id)
+        Meeting.delete(meeting)
+
     def cancelMeeting(self, meeting_id):
-       meeting = Meeting.getById(meeting_id)
-       # need to delete previous meeting associated with this meeting
-       past_notifications = Notification.getByMeetingId(meeting_id)
-       print (past_notifications)
-       for past_notification in past_notifications:
-           Notification.delete(past_notification)
-
-       # get all the meeting attendees
-       #  and send them all notification of cancelation
-       attendees = MeetingAttendee.getByMeetingId(meeting_id)
-       print (attendees)
-       for att in attendees:
-           print (att)
-           if att.accepted == "Y":
-               message = "Meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)+" is cancelled"
-               notification = self.createNotification(att.employee_id, message, "Y", meeting_id, "Y")
-
-
-           MeetingAttendee.delete(att)
-
-       self.deleteEmployeeSchedule(meeting.meeting_id)
-       Meeting.delete(meeting)
+       self.deleteMeeting(meeting_id)
        return EmployeeController().dashboard()
 
     def schedule(self):
@@ -160,6 +162,7 @@ class MeetingController():
         employee_schedule.end_time = meeting.end_time
         employee_schedule.available = "N"
         employee_schedule.meeting_id = meeting.meeting_id
+        employee_schedule.info = "Meeting"
         EmployeeSchedule.add(employee_schedule)
 
     def createNotification(self, employee_id,  msg, active="Y", meeting_id="", deletion="Y"):
@@ -181,7 +184,7 @@ class MeetingController():
 
         #create Notification
         attendee = Employee.getById(meeting_att.employee_id)
-        message = attendee.username+" has accepted your request for meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)
+        message = attendee.getName()+" has accepted your request for meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)
         self.createNotification(meeting.employee_id, message,"Y",
             meeting_att.meeting_id,"Y")
 
@@ -199,7 +202,7 @@ class MeetingController():
 
         #create new notification
         attendee = Employee.getById(meeting_att.employee_id)
-        message = attendee.username+" has declined your request for meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)
+        message = attendee.getName()+" has declined your request for meeting from "+str(meeting.start_time)+" to "+str(meeting.end_time)
         notification = self.createNotification(meeting.employee_id, message, "Y", meeting_att.meeting_id, "Y")
 
         # need to update current notification of this employee

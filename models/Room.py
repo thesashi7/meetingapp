@@ -16,7 +16,7 @@ class Room(Model):
 
    @staticmethod
    def getAvailableRooms(start, end, capacity=0):
-       meetings = Meeting.getByTime(str(start), str(end))
+       meetings = Meeting.getByTime(start, end)
        room_ids = list()
        for meet in meetings:
            room_ids.append(meet.room_id)

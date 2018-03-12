@@ -29,6 +29,11 @@ class MeetingAttendee(Model):
        return meeting_attn
 
    @staticmethod
+   def getByEmployeeId(id):
+       meeting_attn= MeetingAttendee.service.getByEmployeeId(id)
+       return meeting_attn
+
+   @staticmethod
    def getByEmployeeAndStatus(emp_id, ac_stat):
        meeting_attn = MeetingAttendee.service.getByEmployeeAndStatus(emp_id, ac_stat)
        return meeting_attn
