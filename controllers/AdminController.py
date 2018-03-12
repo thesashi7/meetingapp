@@ -20,16 +20,23 @@ from flask.ext.session import Session
 from datetime import datetime
 
 class AdminController(BaseController):
+
     def adminaddroom(self):
         view = PageView()
         if request.method == 'POST':
             print(request.form['room_name']+" "+request.form['capacity'])
-            room = Room()
-            room.name = request.form['room_name']
-            room.capacity = request.form['capacity']
-            Room.add(room)
-            print("submitted")
-            view.setFlashMessage("success", "Room has been saved")
+            exist_room = Room.getByName(request.form['room_name'])
+            print(exist_room)
+            print("-------------------")
+            if isinstance(exist_room, Room):
+                view.setFlashMessage("fail", "Room name already exists!")
+            else:
+                room = Room()
+                room.name = request.form['room_name']
+                room.capacity = request.form['capacity']
+                Room.add(room)
+                print("submitted")
+                view.setFlashMessage("success", "Room has been saved")
         return view.render_admin_add_room()
 
 
@@ -37,12 +44,16 @@ class AdminController(BaseController):
         view = PageView()
         if request.method == 'POST':
             print(request.form['username']+" "+request.form['password'])
-            emp = Employee()
-            emp.setCredentials(request.form['username'], request.form['password'])
-            emp.visible = "Y"
-            Employee.add(emp)
-            print("submitted")
-            view.setFlashMessage("success", "Employee has been saved")
+            exist_emp = Employee.getByUsername(request.form['username'])
+            if isinstance(exist_emp, Employee):
+                view.setFlashMessage("fail", "Username alreayd exists!")
+            else:
+                emp = Employee()
+                emp.setCredentials(request.form['username'], request.form['password'])
+                emp.visible = "Y"
+                Employee.add(emp)
+                print("submitted")
+                view.setFlashMessage("success", "Employee has been saved")
         return view.render_admin_add_emp()
 
 

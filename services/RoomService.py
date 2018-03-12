@@ -22,6 +22,12 @@ class RoomService(DatabaseService):
         Room.capacity >= capacity)).all()
      return rooms
 
+   def getByCapacity(self, capacity):
+       from models.Room import Room
+       rooms = None
+       rooms = self.session.query(Room).filter(Room.capacity >= capacity).all()
+       return rooms
+
    def get(self, id, serialize = False):
      from models.Room import Room
      room = None

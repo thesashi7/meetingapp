@@ -25,7 +25,7 @@ class Room(Model):
        if( len(room_ids) > 0):
            rooms = Room.service.getAllByFilterCapacity(room_ids, capacity)
        else:
-           rooms = Room.service.getAll()
+           rooms = Room.service.getByCapacity(capacity)
        return rooms
 
    @staticmethod

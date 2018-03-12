@@ -154,6 +154,7 @@ def deleteEvent():
 @app.route('/admin_add_room', methods=['GET','POST'])
 @login_required
 def adminaddroom():
+    print("ok ----------------------")
     if(isAdmin()):
         return AdminController().adminaddroom()
     return AdminController().adminlogin()
