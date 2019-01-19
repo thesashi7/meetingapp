@@ -102,8 +102,7 @@ class AdminController(BaseController):
                 # flash('Username or Password is invalid' , 'error')
                 print('Fuck', file=sys.stdout)
                 return redirect('admin_login')
-            print('Got this shit', file=sys.stdout)
-            print("fffuuuc")
+            print('ok', file=sys.stdout)
             session['user_type'] = "Admin"
             print(registered_user)
             login_user(registered_user)
